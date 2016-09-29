@@ -10,16 +10,16 @@
 defined('_JEXEC') or die;
 
 /**
- * Item Table
+ * Cart Table
  *
  * @since  1.0
  */
-class RedeventcartTableItem extends RTable
+class RedeventcartTableCart extends RTable
 {
 	/**
 	 * The table name without the prefix.
 	 *
 	 * @var  string
 	 */
-	protected $_tableName = 'redeventcart_item';
+	protected $_tableName = 'redeventcart_cart';
 }

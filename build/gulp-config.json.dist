@@ -1,5 +1,5 @@
 {
-	"wwwDir"           : "/home/travis/build/redCOMPONENT-COM/redEVEntcart/tests/joomla-cms3",
+	"wwwDir"           : "/home/travis/build/redCOMPONENT-COM/redEVENTCART/tests/joomla-cms3",
 	"release_dir"   : "../releases/",
 	"browserConfig" : {
 		"proxy": "localhost",

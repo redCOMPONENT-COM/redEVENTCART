@@ -8,23 +8,8 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
-<h3><?= Jtext::_('COM_REDEVENTCART_VIEW_TITLE_MY_ITEMS') ?></h3>
+<h3><?= $this->title ?></h3>
 
 <?= $this->intro ?>
 
-<table class="table redeventcart-items">
-	<thead>
-		<tr>
-			<th><?= JText::_('COM_REDEVENTCART_VIEW_ITEMS_COL_NAME') ?></th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php if ($this->items): ?>
-			<?php foreach ($this->items as $c): ?>
-				<tr>
-					<td><?= JHtml::link(RedeventcartHelperRoute::getItemRoute($c->id), $c->name) ?></td>
-				</tr>
-			<?php endforeach; ?>
-		<?php endif; ?>
-	</tbody>
-</table>
+<?php echo '<pre>'; echo print_r($this->items, true); echo '</pre>';

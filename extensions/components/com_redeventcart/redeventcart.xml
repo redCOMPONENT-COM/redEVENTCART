@@ -76,4 +76,9 @@
 		<library name="redeventcart"/>
 	</libraries>
 
+	<!-- Plugins to install -->
+	<plugins>
+		<plugin name="redeventcart" group="system" />
+	</plugins>
+
 </extension>

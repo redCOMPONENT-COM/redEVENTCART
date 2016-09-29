@@ -28,7 +28,7 @@ class RedeventcartViewCart extends JViewLegacy
 		$app           = JFactory::getApplication();
 		$menu          = $app->getMenu()->getActive();
 
-		$this->title   = $menu->params->get('custom_title', 'COM_REDEVENTCART_VIEW_TITLE_CART');
+		$this->title   = $menu->params->get('custom_title', JText::_('COM_REDEVENTCART_VIEW_TITLE_CART'));
 		$this->intro   = $menu->params->get('intro');
 		$this->state = $this->get('state');
 		$this->items = $this->get('items');

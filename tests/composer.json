@@ -1,6 +1,6 @@
 {
-	"name"       : "redCOMPONENT-COM/redEVEntcart",
-	"description": "redEVEntcart extension",
+	"name"       : "redCOMPONENT-COM/redEVENTCART",
+	"description": "redEVENTCART extension",
 	"license"    : "GPL-2.0+",
 	"require"    : {
 		"php": ">=5.3.10"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-    <layout title="COM_REDEVENTCART_VIEW_CONVERSATIONS_DEFAULT_TITLE">
+    <layout title="COM_REDEVENTCART_VIEW_CART_DEFAULT_TITLE">
         <message>
-            <![CDATA[COM_REDEVENTCART_VIEW_CONVERSATIONS_DEFAULT_DESC]]>
+            <![CDATA[COM_REDEVENTCART_VIEW_CART_DEFAULT_DESC]]>
         </message>
     </layout>
 
@@ -16,8 +16,8 @@
             <field name="intro"
                    type="editor"
                    filter="raw"
-                   label="COM_REDEVENTCART_VIEW_ITEMS_INTRO_LABEL"
-                   description="COM_REDEVENTCART_VIEW_ITEMS_INTRO_DESC" />
+                   label="COM_REDEVENTCART_VIEW_CART_INTRO_LABEL"
+                   description="COM_REDEVENTCART_VIEW_CART_INTRO_DESC" />
         </fieldset>
     </fields>
 </metadata>

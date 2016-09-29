@@ -66,7 +66,6 @@ gulp.task('copy:' + baseTask,
 
 // Copy: frontend
 gulp.task('copy:' + baseTask + ':frontend', ['clean:' + baseTask + ':frontend'], function() {
-	console.log(extPath + '/site/**');
 	return gulp.src(extPath + '/site/**')
 		.pipe(gulp.dest(config.wwwDir + '/components/com_redeventcart'));
 });

@@ -8,6 +8,11 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+/**
+ * Cart controller
+ *
+ * @since  1.0.0
+ */
 class RedeventcartControllerCart extends JControllerLegacy
 {
 }

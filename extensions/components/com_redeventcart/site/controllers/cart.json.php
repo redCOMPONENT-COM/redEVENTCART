@@ -26,36 +26,13 @@ class RedeventcartControllerCart extends JControllerLegacy
 		{
 			$app = JFactory::getApplication();
 
-			$session = RedeventEntitySession::load($this->input->getInt('id'));
+			$cartId = $app->getUserState('redeventcart.cart', 0);
+			$currentCart = RedeventcartEntityCart::load($cartId);
 
-			if (!$session->isValid())
-			{
-				throw new InvalidArgumentException('Missing or invalid session id');
-			}
+			$currentCart->addParticipant($this->input->getInt('id'), $this->input->getInt('spg_id'));
+			$app->setUserState('redeventcart.cart', $currentCart->get('id'));
 
-			$currentCart = $app->getUserState('redeventcart.cart', array());
-
-			JPluginHelper::getPlugin('redeventcart');
-			$error = array();
-			RFactory::getDispatcher()->trigger('onRedeventcartCheckAddSession', array($currentCart, $session, &$error));
-
-			if (!empty($error))
-			{
-				throw new InvalidArgumentException(implode("\n", $error));
-			}
-
-			if (!isset($currentCart[$session->id]))
-			{
-				$currentCart[$session->id] = array("id" => $session->id, "participants" => 1);
-			}
-			else
-			{
-				$currentCart[$session->id]["participants"]++;
-			}
-
-			$app->setUserState('redeventcart.cart', $currentCart);
-
-			echo new JResponseJson($currentCart);
+			echo new JResponseJson($currentCart->toArray());
 		}
 		catch (Exception $e)
 		{

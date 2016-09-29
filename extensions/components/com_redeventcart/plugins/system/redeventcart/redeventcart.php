@@ -17,4 +17,8 @@ jimport('joomla.plugin.plugin');
  */
 class PlgSystemRedeventcart extends JPlugin
 {
+	public function onBeforeRender()
+	{
+		RHelperAsset::load('redeventcart.js', 'com_redeventcart');
+	}
 }

@@ -3,8 +3,6 @@
 	"components" : ["redeventcart", "redcore"],
 	"libraries"  : ["redeventcart", "redcore"],
 	"media"      : ["redcore"],
-	"plugins" : {
-		"content" : ["redeventcart"]
-	},
+	"plugins" : {},
 	"webservices" : ["redcore"]
 }
