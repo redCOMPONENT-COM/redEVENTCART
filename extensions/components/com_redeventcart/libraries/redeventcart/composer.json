@@ -1,0 +1,13 @@
+{
+    "name"       : "redCOMPONENT-COM/redeventcart",
+    "description": "a redWEB component",
+    "license"    : "GPL-2.0+",
+    "require"    : {
+        "php": ">=5.3.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Redeventcart\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.5" method="upgrade">
+	<name>COM_REDEVENTCART</name>
+	<creationDate>Jan, 2016</creationDate>
+	<author>Redweb.dk</author>
+	<authorEmail>email@redweb.dk</authorEmail>
+	<authorUrl>www.redweb.dk</authorUrl>
+	<copyright>(c) 2016 Redweb.dk</copyright>
+	<license>GNU/GPL</license>
+	<version>1.0.0</version>
+	<redcore version="1.8.7" />
+	<tag>##VERSION##</tag>
+	<description>COM_REDEVENTCART_XML_INSTALL_DESC</description>
+
+	<!-- Runs on install/uninstall/update -->
+	<scriptfile>install.php</scriptfile>
+
+	<!-- SQL queries -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install/mysql/install.sql</file>
+		</sql>
+	</install>
+
+	<!-- Uninstall SQL queries -->
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install/mysql/uninstall.sql</file>
+		</sql>
+	</uninstall>
+
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<!-- Core files site -->
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>redeventcart.php</filename>
+		<folder>controllers</folder>
+		<folder>language</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<media folder="media">
+		<folder>com_redeventcart</folder>
+	</media>
+
+	<administration>
+		<!-- Menu entries -->
+		<menu img="../media/com_redeventcart/images/redeventcart_16.png" view="forms">COM_REDEVENTCART_MENU_TITLE</menu>
+
+		<!-- Core files admin -->
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>LICENSE.txt</filename>
+			<filename>redeventcart.php</filename>
+			<folder>controllers</folder>
+			<folder>language</folder>
+			<folder>layouts</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+
+	</administration>
+
+	<!-- Libraries to install -->
+	<libraries>
+		<library name="redeventcart"/>
+	</libraries>
+
+</extension>

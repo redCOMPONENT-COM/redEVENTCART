@@ -1,0 +1,66 @@
+# OSX
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# PHPStorm
+.idea/
+
+# Sublime Text
+*.sublime*
+sftp-config.json
+
+# Eclipse
+.buildpath
+.project
+.settings
+
+# Netbeans (custom)
+.netbeans/*
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+*~.nib
+*~
+*.bak.php
+
+# composer
+vendor/*
+libraries/redeventcart/vendor/*
+!libraries/redeventcart/vendor/index.html
+
+# Test related files
+tests/system/servers/configdef.php
+tests/system/webdriver/tests/logs/
+tests/acceptance.suite.yml
+tests/api.suite.yml
+codecept.phar
+tests/testingsite/
+tests/vendor/*
+selenium.log
+tests/_output/*
+tests/joomla-cms3
+tests/base
+selenium-server-standalone.jar
+tests/_support/_generated/*
+npm-debug.log
+selenium.log
+/*.log
+/tests/extension
+
+# Never ignore
+!.gitignore
+!index.html
+!index.php
+
+# Build config
+gulp-config.json
+node_modules
+releases

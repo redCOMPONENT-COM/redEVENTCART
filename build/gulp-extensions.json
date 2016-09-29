@@ -1,0 +1,10 @@
+{
+	"cli" 		 : ["redcore"],
+	"components" : ["redeventcart", "redcore"],
+	"libraries"  : ["redeventcart", "redcore"],
+	"media"      : ["redcore"],
+	"plugins" : {
+		"content" : ["redeventcart"]
+	},
+	"webservices" : ["redcore"]
+}

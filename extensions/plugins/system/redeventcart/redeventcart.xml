@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_REDEVENTCART</name>
+	<creationDate>2016</creationDate>
+	<author>redWEB Aps</author>
+	<authorEmail>email@redweb.dk</authorEmail>
+	<authorUrl>www.redcomponent.com</authorUrl>
+	<copyright>(C) 2008 - 2016 redCOMPONENT.com</copyright>
+	<license>GNU/GPL</license>
+	<version>1.0.0</version>
+	<tag>##VERSION##</tag>
+	<description>PLG_SYSTEM_REDEVENTCART_XML_DESC</description>
+	<files>
+		<filename plugin="redeventcart">redeventcart.php</filename>
+		<folder>language</folder>
+	</files>
+</extension>

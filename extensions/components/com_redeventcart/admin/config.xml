@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<fieldset name="general" label="COM_REDEVENTCART_CONFIG_XML_FIELDSET_GENERAL">
+		<field
+				name="dummy"
+				type="text"
+				label="COM_REDEVENTCART_CONFIG_XML_DUMMY_LABEL"
+				description="COM_REDEVENTCART_CONFIG_XML_DUMMY_DESC" />
+	</fieldset>
+</config>
