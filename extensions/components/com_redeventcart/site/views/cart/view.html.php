@@ -31,7 +31,7 @@ class RedeventcartViewCart extends JViewLegacy
 		$this->title   = $menu->params->get('custom_title', JText::_('COM_REDEVENTCART_VIEW_TITLE_CART'));
 		$this->intro   = $menu->params->get('intro');
 		$this->state = $this->get('state');
-		$this->items = $this->get('items');
+		$this->cart = $this->get('Cart');
 		$this->user = JFactory::getUser();
 
 		parent::display($tpl);

@@ -16,12 +16,11 @@ defined('_JEXEC') or die('Restricted access');
  */
 class RedeventcartModelCart extends RModel
 {
-	public function getItems()
+	public function getCart()
 	{
 		$app = JFactory::getApplication();
-		$current = $app->getUserState('redeventcart.cart', array());
-//		echo '<pre>HRE'; echo print_r($current, true); echo '</pre>'; exit;
+		$current = $app->getUserState('redeventcart.cart', 0);
 
-		return $current;
+		return RedeventcartEntityCart::load($current);
 	}
 }

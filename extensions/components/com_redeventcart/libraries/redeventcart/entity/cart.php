@@ -90,11 +90,13 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	{
 		if (is_null($this->participants) && $this->hasId())
 		{
+			$item = $this->getItem();
+
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select('*')
 				->from('#__redeventcart_cart_participant')
-				->where('cart_id = ' . $this->id);
+				->where('cart_id = ' . $item->id);
 
 			$db->setQuery($query);
 			$res = $db->loadObjectList();
@@ -103,6 +105,28 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		}
 
 		return $this->participants;
+	}
+
+	/**
+	 * Get participants indexed by sessions
+	 *
+	 * @return Participant[]
+	 */
+	public function getSessionsParticipants()
+	{
+		$sessions = array();
+
+		foreach ($this->getParticipants() as $participant)
+		{
+			if (!isset($sessions[$participant->session_id]))
+			{
+				$sessions[$participant->session_id] = array();
+			}
+
+			$sessions[$participant->session_id][] = $participant;
+		}
+
+		return $sessions;
 	}
 
 	/**
@@ -121,27 +145,5 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 			array_keys($sessionsParticipants),
 			$sessionsParticipants
 		);
-	}
-
-	/**
-	 * Get participants indexed by sessions
-	 *
-	 * @return Participant[]
-	 */
-	private function getSessionsParticipants()
-	{
-		$sessions = array();
-
-		foreach ($this->getParticipants() as $participant)
-		{
-			if (!isset($sessions[$participant->session_id]))
-			{
-				$sessions[$participant->session_id] = array();
-			}
-
-			$sessions[$participant->session_id][] = $participant;
-		}
-
-		return $sessions;
 	}
 }

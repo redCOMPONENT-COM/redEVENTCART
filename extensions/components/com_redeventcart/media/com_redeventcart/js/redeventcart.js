@@ -2,7 +2,7 @@ var redeventCart = (function($){
 
 	var addSession = function(id) {
 		$.ajax({
-			url: "index.php?option=com_redevencart&format=json&task=cart.addsession&id=" + id,
+			url: "index.php?option=com_redeventcart&format=json&task=cart.addsession&id=" + id,
 			dataType: "json"
 		})
 		.done(function(data){
@@ -14,6 +14,13 @@ var redeventCart = (function($){
 			alert('failed');
 		});
 	};
+
+	$(function(){
+		$('.redeventcart-addsession').click(function(){
+			var sessionId = $(this).attr('session_id');
+			addSession(sessionId);
+		});
+	});
 
 	return {
 		addSession: addSession
