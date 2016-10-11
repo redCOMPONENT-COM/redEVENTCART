@@ -27,11 +27,16 @@ CREATE TABLE IF NOT EXISTS `#__redeventcart_cart_participant`
   `session_pricegroup_id`   INT(11)        NULL DEFAULT NULL,
   `attendee_id`  INT(11)        NULL DEFAULT NULL,
   `submitter_id` INT(11)        NULL DEFAULT NULL,
+  `user_id`      INT(11)        NULL DEFAULT NULL,
   `params`     VARCHAR(2048)  NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_#__redeventcart_cart`
   FOREIGN KEY (`cart_id`) REFERENCES `#__redeventcart_cart` (`id`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_#__users`
+  FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
+    ON DELETE SET NULL
     ON UPDATE CASCADE
 )
   ENGINE          = InnoDB
