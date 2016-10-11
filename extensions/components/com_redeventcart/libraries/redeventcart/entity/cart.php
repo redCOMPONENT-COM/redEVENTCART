@@ -101,7 +101,7 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 			$db->setQuery($query);
 			$res = $db->loadObjectList();
 
-			$this->participants = $res ? RedeventcartEntityParticipant::loadArray($res) : $res;
+			$this->participants = $res ? RedeventcartEntityParticipant::loadArray($res) : array();
 		}
 
 		return $this->participants;
@@ -114,6 +114,11 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	 */
 	public function getSessionsParticipants()
 	{
+		if (!$this->hasId())
+		{
+			return array();
+		}
+
 		$sessions = array();
 
 		foreach ($this->getParticipants() as $participant)

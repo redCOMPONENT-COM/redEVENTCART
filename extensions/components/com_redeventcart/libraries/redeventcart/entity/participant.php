@@ -16,4 +16,20 @@ defined('_JEXEC') or die;
  */
 class RedeventcartEntityParticipant extends RedeventcartEntityBase
 {
+	/**
+	 * Get participant session
+	 *
+	 * @return RedeventEntitySession
+	 */
+	public function getSession()
+	{
+		$item = $this->loadItem();
+
+		if (!$item->session_id)
+		{
+			return false;
+		}
+
+		return RedeventEntitySession::load($item->session_id);
+	}
 }

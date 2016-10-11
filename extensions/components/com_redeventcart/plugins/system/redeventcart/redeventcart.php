@@ -9,6 +9,8 @@ defined('_JEXEC') or die;
 
 jimport('joomla.plugin.plugin');
 
+JLoader::import('redeventcart.library');
+
 /**
  * Redeventcart System plugin
  *
@@ -19,6 +21,7 @@ class PlgSystemRedeventcart extends JPlugin
 {
 	public function onBeforeRender()
 	{
+		RHtmlMedia::loadFrameworkJs();
 		RHelperAsset::load('redeventcart.js', 'com_redeventcart');
 	}
 }

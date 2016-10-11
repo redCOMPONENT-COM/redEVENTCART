@@ -6,11 +6,9 @@ var redeventCart = (function($){
 			dataType: "json"
 		})
 		.done(function(data){
-			console.dir(data);
 			alert('success');
 		})
 		.fail(function(data){
-			console.dir(data);
 			alert('failed');
 		});
 	};
@@ -19,6 +17,25 @@ var redeventCart = (function($){
 		$('.redeventcart-addsession').click(function(){
 			var sessionId = $(this).attr('session_id');
 			addSession(sessionId);
+		});
+
+		$('form.participant-form .participant-submit').click(function(){
+			var $form = $(this).closest('form');
+
+			document.redformvalidator.isValid($form);
+
+			if (!document.redformvalidator.isValid($form)) {
+				return
+			}
+
+			$.ajax({
+				url: 'index.php?option=com_redeventcart&task=participant.save',
+				type: 'POST',
+				data: $form.serialize()
+			})
+			.done(function(response){
+				alert('done');
+			});
 		});
 	});
 

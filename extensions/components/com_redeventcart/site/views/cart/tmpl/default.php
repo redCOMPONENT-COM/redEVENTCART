@@ -7,6 +7,10 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
+$collapsed = false;
+
+RHtmlMedia::loadFrameworkJs();
+RHelperAsset::load('cartview.js');
 ?>
 <div class="redeventcart">
 	<h3><?= $this->title ?></h3>
@@ -41,6 +45,32 @@ defined('_JEXEC') or die('Restricted access');
 					</tr>
 				</tbody>
 			</table>
+
+			<div class="panel-group" role="tablist" aria-multiselectable="true">
+				<?php $i = 1; ?>
+				<?php foreach ($participants as $participant): ?>
+					<?php $id = $session->id . '_' . $i; ?>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading_<?= $id ?>">
+							<h4 class="panel-title">
+								<?php $class = $collapsed ? 'class="collapsed"' : ''; ?>
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $id ?>" aria-expanded="true" aria-controls="collapse<?= $id ?>" <?= $class ?>>
+									<?= JText::sprintf('COM_REDEVENTCART_CART_PARTICIPANT_D', $i); ?>
+								</a>
+							</h4>
+						</div>
+						<?php $in = $collapsed ? '' : 'in'; ?>
+						<div id="collapse<?= $id ?>" class="panel-collapse collapse <?= $in ?>" role="tabpanel" aria-labelledby="heading_<?= $id ?>">
+							<div class="panel-body">
+								<?php $helper = new \Redeventcart\Registration\Edit($participant); ?>
+								<?= $helper->getForm() ?>
+							</div>
+						</div>
+					</div>
+					<?php $i++; ?>
+					<?php $collapsed = true; ?>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	<?php endforeach; ?>
 </div>

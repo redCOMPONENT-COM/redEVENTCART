@@ -41,6 +41,7 @@
 		<filename>redeventcart.php</filename>
 		<folder>controllers</folder>
 		<folder>language</folder>
+		<folder>layouts</folder>
 		<folder>models</folder>
 		<folder>views</folder>
 	</files>
