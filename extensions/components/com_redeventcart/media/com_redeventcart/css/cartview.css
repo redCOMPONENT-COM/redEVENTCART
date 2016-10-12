@@ -2,6 +2,6 @@ div.panel-group .panel-heading.submitted {
 	background-color: mediumseagreen;
 }
 
-.participant-delete {
+.participant-delete, .participant-add {
 	cursor: pointer;
 }

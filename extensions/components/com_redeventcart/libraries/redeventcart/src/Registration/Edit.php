@@ -54,7 +54,7 @@ class Edit
 
 		$fieldsHtml = $rfcore->getFormFields($form_id, $reference, 1, $options);
 
-		return \RedeventcartHelperLayout::render('redeventcart.participant.form', array('id' => $this->participant->id, 'fieldsHtml' => $fieldsHtml));
+		return \RedeventcartHelperLayout::render('redeventcart.cart.participant.form', array('id' => $this->participant->id, 'fieldsHtml' => $fieldsHtml));
 	}
 
 	/**

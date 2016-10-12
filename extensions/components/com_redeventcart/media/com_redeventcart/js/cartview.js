@@ -1,18 +1,24 @@
 (function($){
 	var toggleChevron = function() {
-		$(this).prev('.panel-heading').find('span.indicator').toggleClass('icon-chevron-down icon-chevron-right');
-	}
+		$(this).closest('.panel-heading').find('span.indicator').toggleClass('icon-chevron-down icon-chevron-right');
+	};
+
+	var updateParticipantsCount = function($session) {
+		var count = $session.find('.panel-default').length - 1;
+		$session.find('.participants-count').val(count);
+	};
 
 	$(function(){
 		/**
 		 * Toggle accordion chevron
 		 */
-		$('.redeventcart .panel-collapse').on('hide.bs.collapse show.bs.collapse', toggleChevron);
+		// $('.redeventcart .panel-collapse').on('hide.bs.collapse show.bs.collapse', toggleChevron);
+		$('.redeventcart.cart').on('click', '.panel-title a', toggleChevron);
 
 		/**
 		 * Submit participant
 		 */
-		$('form.participant-form .participant-submit').click(function(){
+		$('.redeventcart.cart').on('click', '.participant-submit', function(){
 			var $form = $(this).closest('form');
 
 			document.redformvalidator.isValid($form);
@@ -39,9 +45,34 @@
 		});
 
 		/**
+		 * Add participant
+		 */
+		$('.participant-add').click(function(){
+			var sessionId = $(this).attr('session_id');
+			var $panel = $(this).closest('.panel');
+			var index = $panel.index() + 1;
+
+			$.ajax({
+				url: 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index,
+			})
+			.done(function(response){
+				if (response.success) {
+					$panel.before(response.data);
+					updateParticipantsCount($panel.closest('.session'));
+				}
+				else {
+					alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_CONFIRM'));
+				}
+			})
+			.fail(function(){
+				alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_CONFIRM'));
+			});
+		});
+
+		/**
 		 * Remove participant
 		 */
-		$('.participant-delete').click(function(){
+		$('.redeventcart.cart').on('click', '.participant-delete', function(){
 			var $panel = $(this).closest('.panel');
 			var id = $panel.find('input[name="id"]').val();
 
@@ -56,14 +87,16 @@
 			})
 			.done(function(response){
 				if (response.success) {
+					$session = $panel.closest('.session')
 					$panel.remove();
+					updateParticipantsCount($session);
 				}
 				else {
-					alert(Joomla.JText._('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM'));
+					alert(Joomla.JText._('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_ERROR'));
 				}
 			})
 			.fail(function(){
-				alert('Sorry, something went wrong');
+				alert(Joomla.JText._('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_ERROR'));
 			});
 		});
 	});

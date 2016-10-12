@@ -19,7 +19,7 @@ JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 
-<div class="redeventcart">
+<div class="redeventcart cart">
 	<h3><?= $this->title ?></h3>
 
 	<div class="intro">
@@ -46,7 +46,7 @@ JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 								$session->getVenue()->name,
 								$session->getVenue()->country,
 								$session->getDurationDays()) ?></td>
-						<td><input name="participants[]" class="participants-count" value="<?= count($participants) ?>" size="3"/></td>
+						<td><input name="participants[]" class="participants-count" value="<?= count($participants) ?>" size="3" readonly="readonly"/></td>
 						<td></td>
 						<td></td>
 					</tr>
@@ -55,40 +55,30 @@ JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 
 			<div class="panel-group" role="tablist" aria-multiselectable="true">
 				<?php $i = 1; ?>
-				<?php foreach ($participants as $participant): ?>
-					<?php $id = $session->id . '_' . $i; ?>
-					<?php $submitted = $participant->submitter_id > 0; ?>
-					<?php $isCollapsed = $collapsed || $submitted; ?>
-					<div class="panel panel-default">
-						<div class="panel-heading <?= $submitted ? 'submitted' : ''; ?>" role="tab" id="heading_<?= $id ?>">
-							<div class="row">
-								<div class="col-md-11">
-									<h4 class="panel-title">
-										<?php $class = $isCollapsed ? 'class="collapsed"' : ''; ?>
-										<span class="indicator icon-<?= $isCollapsed ? 'chevron-right' : 'chevron-down' ?> "></span>
-										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $id ?>" aria-expanded="true" aria-controls="collapse<?= $id ?>" <?= $class ?>>
-											<?= JText::sprintf('COM_REDEVENTCART_CART_PARTICIPANT_D', $i); ?>
-										</a>
+				<?php foreach ($participants as $participant):
+					$submitted = $participant->submitter_id > 0;
+					$isCollapsed = $collapsed || $submitted;
 
-										<span class="participant-state <?= $submitted ? '' : 'hidden'; ?> icon-ok"></span>
-									</h4>
-								</div>
-								<div class="col-md-1">
-									<span class="participant-delete icon-trash"></span>
-								</div>
-							</div>
-						</div>
-						<?php $in = $isCollapsed ? '' : 'in'; ?>
-						<div id="collapse<?= $id ?>" class="panel-collapse collapse <?= $in ?>" role="tabpanel" aria-labelledby="heading_<?= $id ?>">
-							<div class="panel-body">
-								<?php $helper = new \Redeventcart\Registration\Edit($participant); ?>
-								<?= $helper->getForm() ?>
+					echo RedeventcartHelperLayout::render('redeventcart.cart.participant', compact('participant', 'i', 'isCollapsed'));
+
+					// Set collapsed to true for next participants if this one was not collapsed
+					$collapsed |= !$isCollapsed;
+					$i++;
+				endforeach; ?>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-12">
+								<h4 class="panel-title">
+									<span class="indicator icon-plus"></span>
+									<span class="participant-add" session_id="<?= $sessionId ?>">
+										<?= JText::_('COM_REDEVENTCART_CART_ADD_PARTICIPANT'); ?>
+									</span>
+								</h4>
 							</div>
 						</div>
 					</div>
-					<?php $i++; ?>
-					<?php $collapsed |= !$isCollapsed; ?>
-				<?php endforeach; ?>
+				</div>
 			</div>
 		</div>
 	<?php endforeach; ?>

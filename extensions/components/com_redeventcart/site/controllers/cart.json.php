@@ -39,4 +39,32 @@ class RedeventcartControllerCart extends JControllerLegacy
 			echo new JResponseJson($e);
 		}
 	}
+
+	public function addparticipant()
+	{
+		try
+		{
+			$app = JFactory::getApplication();
+			$sessionId = $this->input->getInt('session_id');
+			$sessionPricegroupId = $this->input->getInt('spg_id');
+			$i = $this->input->getInt('index');
+
+			$cartId = $app->getUserState('redeventcart.cart', 0);
+			$currentCart = RedeventcartEntityCart::load($cartId);
+
+			$id = $currentCart->addParticipant($sessionId, $sessionPricegroupId);
+			$app->setUserState('redeventcart.cart', $currentCart->get('id'));
+
+			// Get participant panel
+			$participant = RedeventcartEntityParticipant::load($id);
+			$isCollapsed = false;
+			$html = RedeventcartHelperLayout::render('redeventcart.cart.participant', compact('participant', 'i', 'isCollapsed'));
+
+			echo new JResponseJson($html);
+		}
+		catch (Exception $e)
+		{
+			echo new JResponseJson($e);
+		}
+	}
 }

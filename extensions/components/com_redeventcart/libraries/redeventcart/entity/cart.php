@@ -27,7 +27,7 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	 * @param   int  $sessionId            session id
 	 * @param   int  $sessionPriceGroupId  session price group id
 	 *
-	 * @return Cart
+	 * @return int participant id
 	 */
 	public function addParticipant($sessionId, $sessionPriceGroupId = null)
 	{
@@ -73,12 +73,12 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 			$data["session_pricegroup_id"] = $sessionPriceGroupId;
 		}
 
-		$participant->save($data);
+		$id = $participant->save($data);
 
 		// Refresh
 		$this->getParticipants();
 
-		return $this;
+		return $id;
 	}
 
 	/**
