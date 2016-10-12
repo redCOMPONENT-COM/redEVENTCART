@@ -1,0 +1,7 @@
+div.panel-group .panel-heading.submitted {
+	background-color: mediumseagreen;
+}
+
+.participant-delete {
+	cursor: pointer;
+}

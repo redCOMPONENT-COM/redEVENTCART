@@ -32,4 +32,21 @@ class RedeventcartEntityParticipant extends RedeventcartEntityBase
 
 		return RedeventEntitySession::load($item->session_id);
 	}
+
+	/**
+	 * Get participant submitter
+	 *
+	 * @return RdfEntitySubmitter
+	 */
+	public function getSubmitter()
+	{
+		$item = $this->loadItem();
+
+		if (!$item->submitter_id)
+		{
+			return false;
+		}
+
+		return RdfEntitySubmitter::load($item->submitter_id);
+	}
 }

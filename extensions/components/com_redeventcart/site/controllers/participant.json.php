@@ -16,7 +16,37 @@ defined('_JEXEC') or die('Restricted access');
 class RedeventcartControllerParticipant extends JControllerLegacy
 {
 	/**
-	 * Add session to cart
+	 * Delete a participant
+	 *
+	 * @return void
+	 */
+	public function delete()
+	{
+		try
+		{
+			if (!$id = $this->input->getInt('id'))
+			{
+				throw new InvalidArgumentException(JText::_('COM_REDEVENTCART_PARTICIPANT_ID_REQUIRED'));
+			}
+
+			$model = $this->getModel('participant');
+			$ids = array($id);
+
+			if (!$model->delete($ids))
+			{
+				throw new RuntimeException($model->getError());
+			}
+
+			echo new JResponseJson(array('removed_id' => $id));
+		}
+		catch (Exception $e)
+		{
+			echo new JResponseJson($e);
+		}
+	}
+
+	/**
+	 * Save participant
 	 *
 	 * @return void
 	 */
@@ -62,7 +92,7 @@ class RedeventcartControllerParticipant extends JControllerLegacy
 				$options['currency'] = $session->getEvent()->getForm()->currency;
 			}
 
-			$redformHelper = new RdfCoreFormSubmission();
+			$redformHelper = new RdfCoreFormSubmission;
 			$data = array();
 
 			if ($submitterId = $participant->submitter_id)
