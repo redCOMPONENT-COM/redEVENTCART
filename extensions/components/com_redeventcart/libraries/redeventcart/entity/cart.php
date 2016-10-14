@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Redeventcart\Cart\Sessionitems;
+
 /**
  * Cart entity.
  *
@@ -18,6 +20,8 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 {
 	/**
 	 * @var RedeventcartEntityParticipant[]
+	 *
+	 * @since 1.0
 	 */
 	private $participants;
 
@@ -28,6 +32,8 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	 * @param   int  $sessionPriceGroupId  session price group id
 	 *
 	 * @return int participant id
+	 *
+	 * @since 1.0
 	 */
 	public function addParticipant($sessionId, $sessionPriceGroupId = null)
 	{
@@ -82,9 +88,93 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	}
 
 	/**
+	 * Get currency
+	 *
+	 * @return string
+	 *
+	 * @since 1.0
+	 */
+	public function getCurrency()
+	{
+		if (!$this->hasId())
+		{
+			return false;
+		}
+
+		$currency = false;
+
+		foreach ($this->getSessionsitems() as $sessionitems)
+		{
+			if (!$sessionCurrency = $sessionitems->getCurrency())
+			{
+				continue;
+			}
+
+			$currency = $currency ?: $sessionCurrency;
+
+			if ($currency != $sessionCurrency)
+			{
+				throw new RuntimeException('Multiple currencies used in same cart !');
+			}
+		}
+
+		return $currency;
+	}
+
+	/**
+	 * Get total price without vat
+	 *
+	 * @return float
+	 *
+	 * @since 1.0
+	 */
+	public function getTotalPrice()
+	{
+		if (!$this->hasId())
+		{
+			return false;
+		}
+
+		$total = 0;
+
+		foreach ($this->getSessionsitems() as $sessionitems)
+		{
+			$total += $sessionitems->getTotalPrice();
+		}
+
+		return $total;
+	}
+
+	/**
+	 * Get total vat
+	 *
+	 * @return float
+	 *
+	 * @since 1.0
+	 */
+	public function getTotalVat()
+	{
+		if (!$this->hasId())
+		{
+			return false;
+		}
+
+		$total = 0;
+
+		foreach ($this->getSessionsitems() as $sessionitems)
+		{
+			$total += $sessionitems->getTotalVat();
+		}
+
+		return $total;
+	}
+
+	/**
 	 * Get participants
 	 *
 	 * @return RedeventcartEntityParticipant[]
+	 *
+	 * @since 1.0
 	 */
 	public function getParticipants()
 	{
@@ -108,9 +198,40 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	}
 
 	/**
+	 * Get sessions items
+	 *
+	 * @return Sessionitems[]
+	 *
+	 * @since 1.0
+	 */
+	public function getSessionsitems()
+	{
+		if (!$this->hasId())
+		{
+			return array();
+		}
+
+		if (!$this->sessionsItems)
+		{
+			$sessionsItems = array();
+
+			foreach ($this->getSessionsParticipants() as $sessionId => $participants)
+			{
+				$sessionsItems[$sessionId] = new Sessionitems($participants);
+			}
+
+			$this->sessionsItems = $sessionsItems;
+		}
+
+		return $this->sessionsItems;
+	}
+
+	/**
 	 * Get participants indexed by sessions
 	 *
 	 * @return Participant[]
+	 *
+	 * @since 1.0
 	 */
 	public function getSessionsParticipants()
 	{
@@ -138,6 +259,8 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	 * Export to array for ajax response
 	 *
 	 * @return array
+	 *
+	 * @since 1.0
 	 */
 	public function toArray()
 	{

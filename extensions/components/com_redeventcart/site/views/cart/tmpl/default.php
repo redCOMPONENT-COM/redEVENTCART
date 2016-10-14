@@ -28,9 +28,9 @@ JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 
 	<?php foreach ($this->cart->getSessionsParticipants() as $sessionId => $participants): ?>
 		<?php $session = RedeventEntitySession::load($sessionId); ?>
-		<div class="session">
+		<div class="session" session_id="<?= $sessionId ?>">
 			<div class="session-title"><?= $session->getEvent()->title ?></div>
-			<table class="table">
+			<table class="table items-table">
 				<thead>
 					<tr>
 						<th><?= JText::_('COM_REDEVENTCART_CART_DATE_AND_LOCATION') ?></th>
@@ -40,16 +40,6 @@ JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><?= JText::sprintf('COM_REDEVENTCART_CART_DATE_AND_LOCATION_S_S_S_D',
-								$session->getFormattedStartDate(),
-								$session->getVenue()->name,
-								$session->getVenue()->country,
-								$session->getDurationDays()) ?></td>
-						<td><input name="participants[]" class="participants-count" value="<?= count($participants) ?>" size="3" readonly="readonly"/></td>
-						<td></td>
-						<td></td>
-					</tr>
 				</tbody>
 			</table>
 

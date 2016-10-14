@@ -40,6 +40,11 @@ class RedeventcartControllerCart extends JControllerLegacy
 		}
 	}
 
+	/**
+	 * Add participant in cart view
+	 *
+	 * @return void
+	 */
 	public function addparticipant()
 	{
 		try
@@ -49,11 +54,14 @@ class RedeventcartControllerCart extends JControllerLegacy
 			$sessionPricegroupId = $this->input->getInt('spg_id');
 			$i = $this->input->getInt('index');
 
-			$cartId = $app->getUserState('redeventcart.cart', 0);
+			if (!$cartId = $app->getUserState('redeventcart.cart', 0))
+			{
+				throw new RuntimeException('Cannot add participant to empty cart');
+			}
+
 			$currentCart = RedeventcartEntityCart::load($cartId);
 
 			$id = $currentCart->addParticipant($sessionId, $sessionPricegroupId);
-			$app->setUserState('redeventcart.cart', $currentCart->get('id'));
 
 			// Get participant panel
 			$participant = RedeventcartEntityParticipant::load($id);
@@ -61,6 +69,63 @@ class RedeventcartControllerCart extends JControllerLegacy
 			$html = RedeventcartHelperLayout::render('redeventcart.cart.participant', compact('participant', 'i', 'isCollapsed'));
 
 			echo new JResponseJson($html);
+		}
+		catch (Exception $e)
+		{
+			echo new JResponseJson($e);
+		}
+	}
+
+	/**
+	 * Add participant in cart view
+	 *
+	 * @return void
+	 */
+	public function priceitems()
+	{
+		try
+		{
+			$app = JFactory::getApplication();
+
+			$cartId = $app->getUserState('redeventcart.cart', 0);
+			$currentCart = RedeventcartEntityCart::load($cartId);
+
+			$data = array(
+				'totalVatExcl' => RHelperCurrency::getFormattedPrice($currentCart->getTotalPrice(), $currentCart->getCurrency()),
+				'totalVatIncl' => RHelperCurrency::getFormattedPrice(
+					$currentCart->getTotalPrice() + $currentCart->getTotalVat(), $currentCart->getCurrency()
+				),
+				'sessions' => array()
+			);
+
+			foreach ($currentCart->getSessionsitems() as $sessionId => $sessionItems)
+			{
+				$sessionData = array(
+					'sessionId' => $sessionId,
+					'items' => array()
+				);
+
+				foreach ($sessionItems->getItems() as $item)
+				{
+					$itemData = array(
+						'count' => $item->getCount(),
+						'currency' => $item->getCurrency(),
+						'sku' => $item->getSku(),
+						'label' => $item->getLabel(),
+						'priceVatExcl' => RHelperCurrency::getFormattedPrice($item->getPriceVatExcluded(), $item->getCurrency()),
+						'priceVatIncl' => RHelperCurrency::getFormattedPrice($item->getPriceVatIncluded(), $item->getCurrency()),
+						'totalVatExcl' => RHelperCurrency::getFormattedPrice($item->getPriceVatExcluded() * $item->getCount(), $item->getCurrency()),
+						'totalVatIncl' => RHelperCurrency::getFormattedPrice($item->getPriceVatIncluded() * $item->getCount(), $item->getCurrency()),
+						'vat' => $item->getVat()
+					);
+
+					$sessionData['items'][] = $itemData;
+				}
+
+				$data['sessions'][] = $sessionData;
+			}
+
+			echo new JResponseJson($data);
 		}
 		catch (Exception $e)
 		{

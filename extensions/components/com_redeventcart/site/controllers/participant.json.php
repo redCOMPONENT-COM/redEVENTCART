@@ -83,6 +83,7 @@ class RedeventcartControllerParticipant extends JControllerLegacy
 				}
 
 				$field = $session->getPricefield();
+				$field->setPaymentRequestItemLabel(RedeventcartHelperLayout::render('redeventcart.cart.sessionlabel', compact('session')));
 				$field->setValue($regPricegroup);
 				$field->setFormIndex(1);
 

@@ -3,9 +3,31 @@
 		$(this).closest('.panel-heading').find('span.indicator').toggleClass('icon-chevron-down icon-chevron-right');
 	};
 
-	var updateParticipantsCount = function($session) {
-		var count = $session.find('.panel-default').length - 1;
-		$session.find('.participants-count').val(count);
+	var updatePrice = function() {
+		$.ajax({
+			url: 'index.php?option=com_redeventcart&format=json&task=cart.priceitems',
+		})
+		.done(function(response){
+			if (!(response.success == true))
+			{
+				alert(response.message);
+			}
+
+			response.data.sessions.forEach(function(sessionData){
+				var $session = $('.redeventcart.cart .session[session_id=' + sessionData.sessionId + ']');
+				var $tbody = $session.find('table.items-table tbody');
+				$tbody.empty();
+
+				sessionData.items.forEach(function(item){
+					var $row = $('<tr></tr>');
+					$('<td></td>').text(item.label).appendTo($row);
+					$('<td></td>').text(item.count).appendTo($row);
+					$('<td></td>').text(item.priceVatIncl).appendTo($row);
+					$('<td></td>').text(item.totalVatIncl).appendTo($row);
+					$row.appendTo($tbody);
+				});
+			});
+		});
 	};
 
 	$(function(){
@@ -58,7 +80,7 @@
 			.done(function(response){
 				if (response.success) {
 					$panel.before(response.data);
-					updateParticipantsCount($panel.closest('.session'));
+					updatePrice();
 				}
 				else {
 					alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_CONFIRM'));
@@ -89,7 +111,7 @@
 				if (response.success) {
 					$session = $panel.closest('.session')
 					$panel.remove();
-					updateParticipantsCount($session);
+					updatePrice();
 				}
 				else {
 					alert(Joomla.JText._('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_ERROR'));
@@ -99,5 +121,7 @@
 				alert(Joomla.JText._('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_ERROR'));
 			});
 		});
+
+		updatePrice();
 	});
 })(jQuery);
