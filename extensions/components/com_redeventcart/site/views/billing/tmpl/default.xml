@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_REDEVENTCART_VIEW_CHECKOUT_DEFAULT_TITLE">
+        <message>
+            <![CDATA[COM_REDEVENTCART_VIEW_CHECKOUT_DEFAULT_DESC]]>
+        </message>
+    </layout>
+
+    <fields name="params">
+        <fieldset name="basic" label="COM_REDEVENTCART_MENU_XML_FIELDSET_OPTIONS">
+            <field name="custom_title"
+                   type="text"
+                   default=""
+                   label="COM_REDEVENTCART_FIELD_CUSTOM_TITLE_LABEL"
+                   description="COM_REDEVENTCART_FIELD_CUSTOM_TITLE_DESC" />
+            <field name="intro"
+                   type="editor"
+                   filter="raw"
+                   label="COM_REDEVENTCART_VIEW_CHECKOUT_INTRO_LABEL"
+                   description="COM_REDEVENTCART_VIEW_CHECKOUT_INTRO_DESC" />
+        </fieldset>
+    </fields>
+</metadata>

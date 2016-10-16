@@ -3,6 +3,10 @@
 		$(this).closest('.panel-heading').find('span.indicator').toggleClass('icon-chevron-down icon-chevron-right');
 	};
 
+	var updateCheckout = function() {
+
+	};
+
 	var updatePrice = function() {
 		$.ajax({
 			url: 'index.php?option=com_redeventcart&format=json&task=cart.priceitems',
@@ -12,6 +16,8 @@
 			{
 				alert(response.message);
 			}
+
+			$('.redeventcart.cart .total-price').text(response.data.totalVatIncl);
 
 			response.data.sessions.forEach(function(sessionData){
 				var $session = $('.redeventcart.cart .session[session_id=' + sessionData.sessionId + ']');
@@ -123,5 +129,6 @@
 		});
 
 		updatePrice();
+		updateCheckout();
 	});
 })(jQuery);

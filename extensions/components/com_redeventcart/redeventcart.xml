@@ -39,6 +39,7 @@
 	<files folder="site">
 		<filename>controller.php</filename>
 		<filename>redeventcart.php</filename>
+		<filename>router.php</filename>
 		<folder>controllers</folder>
 		<folder>language</folder>
 		<folder>layouts</folder>

@@ -72,4 +72,15 @@ JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 			</div>
 		</div>
 	<?php endforeach; ?>
+
+	<div class="cart-footer">
+		<div class="total">
+			<div class="total-label"><?= JText::_('COM_REDEVENTCART_CART_TOTAL') ?></div>
+			<div class="total-price"></div>
+		</div>
+
+		<div class="checkout">
+			<a href="<?= JRoute::_(RedeventcartHelperRoute::getBillingRoute()) ?>" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_CHECKOUT') ?></a>
+		</div>
+	</div>
 </div>

@@ -19,18 +19,18 @@ abstract class RedeventcartHelperRoute
 	protected static $lookup;
 
 	/**
-	 * Get items route link
+	 * Get cart route link
 	 *
 	 * @return  link
 	 */
-	public static function getConversationsRoute()
+	public static function getCartRoute()
 	{
 		$needles = array(
-			'items'  => array()
+			'cart'  => array()
 		);
 
 		// Create the link
-		$link = 'index.php?option=com_redeventcart&view=items';
+		$link = 'index.php?option=com_redeventcart&view=cart';
 
 		if ($item = self::findItem($needles))
 		{
@@ -49,18 +49,24 @@ abstract class RedeventcartHelperRoute
 	}
 
 	/**
-	 * Get item route link
-	 *
-	 * @param   int  $id  item id
+	 * Get billing route link
 	 *
 	 * @return  link
 	 */
-	public static function getItemRoute($id)
+	public static function getBillingRoute()
 	{
-		// Create the link
-		$link = 'index.php?option=com_redeventcart&view=item&id=' . $id;
+		$needles = array(
+			'billing'  => array()
+		);
 
-		if ($item = self::findItem())
+		// Create the link
+		$link = 'index.php?option=com_redeventcart&view=billing';
+
+		if ($item = self::findItem($needles))
+		{
+			$link .= '&Itemid=' . $item;
+		}
+		elseif ($item = self::findItem())
 		{
 			$link .= '&Itemid=' . $item;
 		}
@@ -101,15 +107,6 @@ abstract class RedeventcartHelperRoute
 
 					if (!isset(self::$lookup[$view]))
 					{
-						self::$lookup[$view] = array();
-					}
-
-					if ($view == 'item')
-					{
-						self::$lookup[$view][$item->query['id']] = $item->id;
-					}
-					elseif ($view == 'items')
-					{
 						self::$lookup[$view] = $item->id;
 					}
 				}
@@ -122,18 +119,7 @@ abstract class RedeventcartHelperRoute
 			{
 				if (isset(self::$lookup[$view]))
 				{
-					foreach ($ids as $id)
-					{
-						if (isset(self::$lookup[$view][(int) $id]))
-						{
-							return self::$lookup[$view][(int) $id];
-						}
-					}
-
-					if ($view == 'items' && isset(self::$lookup[$view]))
-					{
-						return self::$lookup[$view];
-					}
+					return self::$lookup[$view];
 				}
 			}
 		}
