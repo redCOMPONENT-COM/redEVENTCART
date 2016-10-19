@@ -1,6 +1,22 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 
+CREATE TABLE IF NOT EXISTS `#__redeventcart_billing`
+(
+  `id`           INT(11)        NOT NULL AUTO_INCREMENT,
+  `cart_id`      INT(11)        NOT NULL,
+  `plugin`       VARCHAR(50)    NOT NULL,
+  `reference`    VARCHAR(100)   NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_#__redeventcart_cart`
+  FOREIGN KEY (`cart_id`) REFERENCES `#__redeventcart_cart` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+  ENGINE          = InnoDB
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT  = 1;
+
 CREATE TABLE IF NOT EXISTS `#__redeventcart_cart`
 (
   `id`         INT(11)        NOT NULL AUTO_INCREMENT,

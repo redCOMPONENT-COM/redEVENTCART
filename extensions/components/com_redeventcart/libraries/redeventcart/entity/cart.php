@@ -26,6 +26,21 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	private $participants;
 
 	/**
+	 * Get current user current cart
+	 *
+	 * @return $this
+	 *
+	 * @since version 1.0
+	 */
+	public static function getCurrentInstance()
+	{
+		$app = JFactory::getApplication();
+
+		$cartId = $app->getUserState('redeventcart.cart', 0);
+		return self::load($cartId);
+	}
+
+	/**
 	 * Add a participant for a session
 	 *
 	 * @param   int  $sessionId            session id
@@ -85,6 +100,29 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		$this->getParticipants();
 
 		return $id;
+	}
+
+	/**
+	 * Clear current cart billing info
+	 *
+	 * @return void
+	 *
+	 * @since 1.0
+	 */
+	public function clearBilling()
+	{
+		if (!$this->hasId())
+		{
+			return false;
+		}
+
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
+			->delete('#__redeventcart_billing')
+			->where('cart_id = ' . $this->id);
+
+		$db->setQuery($query);
+		$db->execute();
 	}
 
 	/**

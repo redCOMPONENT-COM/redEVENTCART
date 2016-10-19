@@ -9,12 +9,12 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Billing View class
+ * Review View class
  *
  * @package  Redeventcart.Site
  * @since    1.0
  */
-class RedeventcartViewBilling extends JViewLegacy
+class RedeventcartViewReview extends JViewLegacy
 {
 	/**
 	 * Execute and display a template script.
@@ -30,13 +30,10 @@ class RedeventcartViewBilling extends JViewLegacy
 		$params        = $app->getParams();
 		$this->params  = $params;
 
-		$this->title   = $menu->params->get('custom_title', JText::_('COM_REDEVENTCART_VIEW_TITLE_BILLING'));
+		$this->title   = $menu->params->get('custom_title', JText::_('COM_REDEVENTCART_VIEW_TITLE_REVIEW'));
 		$this->intro   = $menu->params->get('intro');
 		$this->cart = $this->get('Cart');
 		$this->user = JFactory::getUser();
-
-		JPluginHelper::importPlugin('redeventcart_billing');
-		$this->dispatcher = RFactory::getDispatcher();
 
 		parent::display($tpl);
 	}

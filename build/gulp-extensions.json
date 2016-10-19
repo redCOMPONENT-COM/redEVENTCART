@@ -3,6 +3,8 @@
 	"components" : ["redeventcart", "redcore"],
 	"libraries"  : ["redeventcart", "redcore"],
 	"media"      : ["redcore"],
-	"plugins" : {},
+	"plugins" : {
+		"redeventcart_billing" : ["redmember"]
+	},
 	"webservices" : ["redcore"]
 }

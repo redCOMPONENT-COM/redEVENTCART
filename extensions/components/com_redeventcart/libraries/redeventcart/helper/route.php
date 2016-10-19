@@ -40,9 +40,10 @@ abstract class RedeventcartHelperRoute
 		{
 			$link .= '&Itemid=' . $item;
 		}
-		else
+		elseif ($itemId = JFactory::getApplication()->input->getInt('Itemid', 0))
 		{
-			$link .= '&Itemid=' . JFactory::getApplication()->input->getInt('Itemid', 0);
+
+			$link .= '&Itemid=' . $itemId;
 		}
 
 		return $link;
@@ -70,9 +71,41 @@ abstract class RedeventcartHelperRoute
 		{
 			$link .= '&Itemid=' . $item;
 		}
-		else
+		elseif ($itemId = JFactory::getApplication()->input->getInt('Itemid', 0))
 		{
-			$link .= '&Itemid=' . JFactory::getApplication()->input->getInt('Itemid', 0);
+
+			$link .= '&Itemid=' . $itemId;
+		}
+
+		return $link;
+	}
+
+	/**
+	 * Get cart route link
+	 *
+	 * @return  link
+	 */
+	public static function getReviewRoute()
+	{
+		$needles = array(
+			'review'  => array()
+		);
+
+		// Create the link
+		$link = 'index.php?option=com_redeventcart&view=review';
+
+		if ($item = self::findItem($needles))
+		{
+			$link .= '&Itemid=' . $item;
+		}
+		elseif ($item = self::findItem())
+		{
+			$link .= '&Itemid=' . $item;
+		}
+		elseif ($itemId = JFactory::getApplication()->input->getInt('Itemid', 0))
+		{
+
+			$link .= '&Itemid=' . $itemId;
 		}
 
 		return $link;
