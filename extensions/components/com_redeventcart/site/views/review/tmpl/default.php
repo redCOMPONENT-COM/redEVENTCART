@@ -11,12 +11,13 @@ defined('_JEXEC') or die('Restricted access');
 RHtmlMedia::loadFrameworkJs();
 RHelperAsset::load('reviewview.js');
 RHelperAsset::load('cartview.css');
+$isCollapsed = false;
 ?>
 <?php if ($this->params->get('show_page_heading')) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 
-<div class="redeventcart cart">
+<div class="redeventcart review">
 	<h3><?= $this->title ?></h3>
 
 	<div class="intro">
@@ -45,6 +46,7 @@ RHelperAsset::load('cartview.css');
 				<?php foreach ($participants as $participant):
 					echo RedeventcartHelperLayout::render('redeventcart.cart.participantreview', compact('participant', 'i', 'isCollapsed'));
 					$i++;
+					$isCollapsed = true;
 				endforeach; ?>
 			</div>
 		</div>

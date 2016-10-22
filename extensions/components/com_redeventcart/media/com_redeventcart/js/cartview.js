@@ -9,7 +9,7 @@
 
 	var updatePrice = function() {
 		$.ajax({
-			url: 'index.php?option=com_redeventcart&format=json&task=cart.priceitems',
+			url: 'index.php?option=com_redeventcart&format=json&task=cart.priceitems'
 		})
 		.done(function(response){
 			if (!(response.success == true))
@@ -81,7 +81,7 @@
 			var index = $panel.index() + 1;
 
 			$.ajax({
-				url: 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index,
+				url: 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index
 			})
 			.done(function(response){
 				if (response.success) {
@@ -111,7 +111,7 @@
 			}
 
 			$.ajax({
-				url: 'index.php?option=com_redeventcart&format=json&task=participant.delete&id=' + id,
+				url: 'index.php?option=com_redeventcart&format=json&task=participant.delete&id=' + id
 			})
 			.done(function(response){
 				if (response.success) {

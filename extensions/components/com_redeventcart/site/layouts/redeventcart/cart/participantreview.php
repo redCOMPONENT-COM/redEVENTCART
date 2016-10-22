@@ -26,7 +26,7 @@ $submitted = $participant->submitter_id > 0;
 				</h4>
 			</div>
 			<div class="col-md-1">
-				<span class="participant-edit icon-edit"></span>
+				<a href="<?= JRoute::_(RedeventcartHelperRoute::getCartRoute()) ?>"><span class="participant-edit icon-edit"></span></a>
 			</div>
 		</div>
 	</div>
