@@ -4,13 +4,12 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 CREATE TABLE IF NOT EXISTS `#__redeventcart_billing`
 (
   `id`           INT(11)        NOT NULL AUTO_INCREMENT,
-  `cart_id`      INT(11)        NOT NULL,
+  `user_id`      INT(11)        NULL DEFAULT NULL,
   `plugin`       VARCHAR(50)    NOT NULL,
-  `reference`    VARCHAR(100)   NULL DEFAULT NULL,
+  `data`         TEXT           NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_#__redeventcart_cart`
-  FOREIGN KEY (`cart_id`) REFERENCES `#__redeventcart_cart` (`id`)
-    ON DELETE CASCADE
+  FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
+    ON DELETE SET NULL
     ON UPDATE CASCADE
 )
   ENGINE          = InnoDB
@@ -21,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `#__redeventcart_cart`
 (
   `id`         INT(11)        NOT NULL AUTO_INCREMENT,
   `user_id`    INT(11)        NULL DEFAULT NULL,
+  `billing_id` INT(11)        NULL DEFAULT NULL,
   `created`    DATETIME       NOT NULL,
   `status`     VARCHAR(50)    NOT NULL DEFAULT '',
   `params`     VARCHAR(2048)  NOT NULL DEFAULT '',
@@ -28,6 +28,10 @@ CREATE TABLE IF NOT EXISTS `#__redeventcart_cart`
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_#__users`
   FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_#__redeventcart_billing`
+  FOREIGN KEY (`billing_id`) REFERENCES `#__redeventcart_billing` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE
 )

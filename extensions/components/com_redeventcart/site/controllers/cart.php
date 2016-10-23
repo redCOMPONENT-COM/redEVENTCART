@@ -15,4 +15,25 @@ defined('_JEXEC') or die('Restricted access');
  */
 class RedeventcartControllerCart extends JControllerLegacy
 {
+	/**
+	 * Start payment
+	 *
+	 * @return void
+	 */
+	public function payment()
+	{
+		try
+		{
+			$app = JFactory::getApplication();
+
+			$cartId = $app->getUserState('redeventcart.cart', 0);
+			$currentCart = RedeventcartEntityCart::load($cartId);
+
+			echo 'TBD';
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
+	}
 }

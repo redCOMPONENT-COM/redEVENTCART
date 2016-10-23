@@ -35,8 +35,13 @@ class RedeventcartViewBilling extends JViewLegacy
 		$this->cart = $this->get('Cart');
 		$this->user = JFactory::getUser();
 
-		JPluginHelper::importPlugin('redeventcart_billing');
+		JPluginHelper::importPlugin('redeventcart_payment');
 		$this->dispatcher = RFactory::getDispatcher();
+
+		$content = '';
+		$this->dispatcher->trigger('onRedeventcartGetbillingView', array(&$content));
+
+		$this->content = $content;
 
 		parent::display($tpl);
 	}
