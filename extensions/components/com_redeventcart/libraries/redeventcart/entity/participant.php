@@ -17,6 +17,43 @@ defined('_JEXEC') or die;
 class RedeventcartEntityParticipant extends RedeventcartEntityBase
 {
 	/**
+	 * Return instance
+	 *
+	 * @param   int  $submitterId  submitter id
+	 *
+	 * @return RedeventcartEntityParticipant
+	 */
+	public function loadBySubmitterId($submitterId)
+	{
+		$table = $this->getTable();
+		$table->load(array('submitter_id' => $submitterId));
+
+		if ($table->id)
+		{
+			$this->loadFromTable($table);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get participant cart
+	 *
+	 * @return RedeventcartEntityCart
+	 */
+	public function getCart()
+	{
+		$item = $this->loadItem();
+
+		if (!$item->cart_id)
+		{
+			return false;
+		}
+
+		return RedeventcartEntityCart::load($item->cart_id);
+	}
+
+	/**
 	 * Get participant session
 	 *
 	 * @return RedeventEntitySession

@@ -29,7 +29,9 @@ class RedeventcartControllerCart extends JControllerLegacy
 			$cartId = $app->getUserState('redeventcart.cart', 0);
 			$currentCart = RedeventcartEntityCart::load($cartId);
 
-			echo 'TBD';
+			JPluginHelper::importPlugin('redeventcart_payment');
+			$this->dispatcher = RFactory::getDispatcher();
+			RFactory::getDispatcher()->trigger('onRedeventcartStartPayment', array(&$currentCart));
 		}
 		catch (Exception $e)
 		{

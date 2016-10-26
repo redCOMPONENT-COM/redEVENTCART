@@ -105,24 +105,22 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	/**
 	 * Clear current cart billing info
 	 *
+	 * @param   int  $billingId  billing id
+	 *
 	 * @return void
 	 *
 	 * @since 1.0
 	 */
-	public function clearBilling()
+	public function setBilling($billingId)
 	{
 		if (!$this->hasId())
 		{
 			return false;
 		}
 
-		$db = JFactory::getDbo();
-		$query = $db->getQuery(true)
-			->delete('#__redeventcart_billing')
-			->where('cart_id = ' . $this->id);
-
-		$db->setQuery($query);
-		$db->execute();
+		$item = $this->getItem();
+		$item->billing_id = $billingId;
+		$this->save($item);
 	}
 
 	/**

@@ -16,20 +16,4 @@ defined('_JEXEC') or die;
  */
 class RedeventcartEntityBilling extends RedeventcartEntityBase
 {
-	/**
-	 * Get billing cart
-	 *
-	 * @return RedeventcartEntityCart
-	 */
-	public function getCart()
-	{
-		$item = $this->loadItem();
-
-		if (!$item->cart_id)
-		{
-			return false;
-		}
-
-		return RedeventcartEntityCart::load($item->cart_id);
-	}
 }
