@@ -85,6 +85,36 @@ abstract class RedeventcartHelperRoute
 	 *
 	 * @return  link
 	 */
+	public static function getReceiptRoute($cartId)
+	{
+		$needles = array(
+			'receipt'  => array($cartId)
+		);
+
+		// Create the link
+		$link = 'index.php?option=com_redeventcart&view=receipt&cartId=' . $cartId;
+
+		if ($item = self::findItem($needles))
+		{
+			$link .= '&Itemid=' . $item;
+		}
+		elseif ($item = self::findItem())
+		{
+			$link .= '&Itemid=' . $item;
+		}
+		elseif ($itemId = JFactory::getApplication()->input->getInt('Itemid', 0))
+		{
+			$link .= '&Itemid=' . $itemId;
+		}
+
+		return $link;
+	}
+
+	/**
+	 * Get cart route link
+	 *
+	 * @return  link
+	 */
 	public static function getReviewRoute()
 	{
 		$needles = array(
