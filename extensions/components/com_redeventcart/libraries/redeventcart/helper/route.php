@@ -196,6 +196,12 @@ abstract class RedeventcartHelperRoute
 			}
 		}
 
+		// Still here ? look for a cart view menu item
+		if (isset(self::$lookup['cart']))
+		{
+			return self::$lookup['cart'];
+		}
+
 		return null;
 	}
 

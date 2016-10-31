@@ -52,7 +52,7 @@
 			document.redformvalidator.isValid($form);
 
 			if (!document.redformvalidator.isValid($form)) {
-				alert('invalid form');
+				alert(Joomla.JText._('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_ERROR'));
 				return;
 			}
 
@@ -62,13 +62,19 @@
 				data: $form.serialize()
 			})
 			.done(function(response){
+				if (!response.success == true)
+				{
+					alert(response.message);
+					return;
+				}
+
 				var $panel = $form.closest('.panel');
 				$panel.find('span.participant-state').removeClass('hidden');
 				$panel.find('.panel-collapse').collapse();
 				$panel.find('.panel-heading').addClass('submitted')
 			})
 			.fail(function(){
-				alert('Sorry, something went wrong');
+				alert(Joomla.JText._('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_ERROR'));
 			});
 		});
 
