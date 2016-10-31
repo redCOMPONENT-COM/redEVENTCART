@@ -35,8 +35,8 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	public static function getCurrentInstance()
 	{
 		$app = JFactory::getApplication();
-
 		$cartId = $app->getUserState('redeventcart.cart', 0);
+
 		return self::load($cartId);
 	}
 
@@ -52,21 +52,7 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	 */
 	public function addParticipant($sessionId, $sessionPriceGroupId = null)
 	{
-		$session = RedeventEntitySession::load($sessionId);
-
-		if (!$session->isValid())
-		{
-			throw new InvalidArgumentException('Missing or invalid session id');
-		}
-
-		JPluginHelper::getPlugin('redeventcart');
-		$error = array();
-		RFactory::getDispatcher()->trigger('onRedeventcartCheckAddSession', array($this, $session, &$error));
-
-		if (!empty($error))
-		{
-			throw new InvalidArgumentException(implode("\n", $error));
-		}
+		$this->checkAddParticipant($sessionId, $sessionPriceGroupId);
 
 		if (!$this->hasId())
 		{
@@ -100,6 +86,55 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		$this->getParticipants();
 
 		return $id;
+	}
+
+	/**
+	 * Check that it is allowed to add a participant for a session
+	 *
+	 * @param   int  $sessionId            session id
+	 * @param   int  $sessionPriceGroupId  session price group id
+	 *
+	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 *
+	 * @since 1.0
+	 */
+	public function checkAddParticipant($sessionId, $sessionPriceGroupId = null)
+	{
+		$session = RedeventEntitySession::load($sessionId);
+
+		if (!$session->isValid())
+		{
+			throw new InvalidArgumentException('Missing or invalid session id');
+		}
+
+		if (!$this->isEmpty())
+		{
+			if ($sessionPriceGroupId)
+			{
+				$sessionProceGroup = RedeventEntitySessionpricegroup::load($sessionPriceGroupId);
+				$newCurrency = $sessionProceGroup->currency;
+			}
+			else
+			{
+				$newCurrency = $session->getEvent()->getForm()->currency;
+			}
+
+			if ($newCurrency !== $this->getCurrency())
+			{
+				throw new InvalidArgumentException(JText::_('LIB_REDEVENTCART_ERROR_ADDING_MULTIPLE_CURRENCIES'));
+			}
+		}
+
+		JPluginHelper::importPlugin('redeventcart');
+		$error = array();
+		RFactory::getDispatcher()->trigger('onRedeventcartCheckAddParticipant', array($this, $session, &$error));
+
+		if (!empty($error))
+		{
+			throw new InvalidArgumentException(implode("\n", $error));
+		}
 	}
 
 	/**
@@ -289,6 +324,21 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		}
 
 		return $sessions;
+	}
+
+	/**
+	 * Check if cart is empty
+	 *
+	 * @return boolean
+	 */
+	public function isEmpty()
+	{
+		if (!$this->hasId())
+		{
+			return true;
+		}
+
+		return $this->getParticipants() ? false : true;
 	}
 
 	/**
