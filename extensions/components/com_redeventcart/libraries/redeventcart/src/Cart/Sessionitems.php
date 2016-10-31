@@ -107,7 +107,7 @@ class Sessionitems
 
 		foreach ($this->getItems() as $item)
 		{
-			$total += $item->getPrice();
+			$total += $item->getPrice() * $item->getCount();
 		}
 
 		return $total;
@@ -262,11 +262,6 @@ class Sessionitems
 
 		foreach ($paymentRequests as $paymentRequest)
 		{
-			if ($paymentRequest->paid)
-			{
-				continue;
-			}
-
 			foreach ($paymentRequest->getItems() as $paymentrequestitem)
 			{
 				$this->addFromPaymentrequestitem($paymentrequestitem);

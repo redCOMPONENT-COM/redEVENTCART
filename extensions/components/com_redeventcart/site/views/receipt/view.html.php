@@ -38,10 +38,10 @@ class RedeventcartViewReceipt extends JViewLegacy
 		JPluginHelper::importPlugin('redeventcart_payment');
 		$this->dispatcher = RFactory::getDispatcher();
 
-		$content = '';
-		$this->dispatcher->trigger('onRedeventcartViewReceipt', array($this->cart, &$content));
+		$billing = '';
+		$this->dispatcher->trigger('onRedeventcartViewReceipt', array($this->cart, &$billing));
 
-		$this->content = $content;
+		$this->billing = $billing;
 
 		parent::display($tpl);
 	}

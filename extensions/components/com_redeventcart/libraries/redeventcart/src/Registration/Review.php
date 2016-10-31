@@ -21,7 +21,7 @@ class Review
 	/**
 	 * @var \RedeventcartEntityParticipant
 	 */
-	private $participant;
+	protected $participant;
 
 	/**
 	 * Edit constructor.
