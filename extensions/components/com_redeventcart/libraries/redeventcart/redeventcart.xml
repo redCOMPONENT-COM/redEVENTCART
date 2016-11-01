@@ -11,6 +11,7 @@
 	<version>1.0.0</version>
 	<description>redeventcart Libraries</description>
 	<files>
+		<folder>entity</folder>
 		<folder>form</folder>
 		<folder>helper</folder>
 		<folder>language</folder>

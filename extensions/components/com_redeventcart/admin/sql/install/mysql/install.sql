@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `#__redeventcart_billing`
   `plugin`       VARCHAR(50)    NOT NULL,
   `data`         TEXT           NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
+  CONSTRAINT `fk_rec_billing__users`
   FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE
@@ -26,11 +27,11 @@ CREATE TABLE IF NOT EXISTS `#__redeventcart_cart`
   `params`     VARCHAR(2048)  NOT NULL DEFAULT '',
   `paid`       TINYINT(1)     NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_#__users`
+  CONSTRAINT `fk_rec_cart__users`
   FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_#__redeventcart_billing`
+  CONSTRAINT `fk_rec_cart__redeventcart_billing`
   FOREIGN KEY (`billing_id`) REFERENCES `#__redeventcart_billing` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE
@@ -50,11 +51,11 @@ CREATE TABLE IF NOT EXISTS `#__redeventcart_cart_participant`
   `user_id`      INT(11)        NULL DEFAULT NULL,
   `params`     VARCHAR(2048)  NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_#__redeventcart_cart`
+  CONSTRAINT `fk_rec_cart_participant__redeventcart_cart`
   FOREIGN KEY (`cart_id`) REFERENCES `#__redeventcart_cart` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_#__users`
+  CONSTRAINT `fk_rec_cart_participant__users`
   FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE

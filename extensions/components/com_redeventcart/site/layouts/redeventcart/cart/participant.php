@@ -18,9 +18,8 @@ $submitted = $participant->submitter_id > 0;
 		<div class="row">
 			<div class="col-md-11">
 				<h4 class="panel-title">
-					<?php $class = $isCollapsed ? 'class="collapsed"' : ''; ?>
 					<span class="indicator icon-<?= $isCollapsed ? 'chevron-right' : 'chevron-down' ?> "></span>
-					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $id ?>" aria-expanded="true" aria-controls="collapse<?= $id ?>" <?= $class ?>>
+					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $id ?>">
 						<?= JText::sprintf('COM_REDEVENTCART_CART_PARTICIPANT_D', $i); ?>
 					</a>
 

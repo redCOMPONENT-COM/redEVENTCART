@@ -1,12 +1,18 @@
 var redeventCart = (function($){
 
-	var addSession = function(id) {
+	var addSession = function(sessionId, sessionPriceGroupId) {
 		$.ajax({
-			url: "index.php?option=com_redeventcart&format=json&task=cart.addsession&id=" + id,
+			url: "index.php?option=com_redeventcart&format=json&task=cart.addsession&id=" + sessionId + "&spg_id=" + sessionPriceGroupId,
 			dataType: "json"
 		})
-		.done(function(data){
-			alert('success');
+		.done(function(response){
+			if (!response.success == true)
+			{
+				alert(response.message);
+				return;
+			}
+
+			alert('added to cart');
 		})
 		.fail(function(data){
 			alert('failed');
@@ -16,7 +22,8 @@ var redeventCart = (function($){
 	$(function(){
 		$('.redeventcart-addsession').click(function(){
 			var sessionId = $(this).attr('session_id');
-			addSession(sessionId);
+			var sessionPriceGroupId = $(this).attr('spg_id') ? $(this).attr('spg_id') : 0;
+			addSession(sessionId, sessionPriceGroupId);
 		});
 	});
 
