@@ -113,12 +113,27 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		{
 			if ($sessionPriceGroupId)
 			{
-				$sessionProceGroup = RedeventEntitySessionpricegroup::load($sessionPriceGroupId);
-				$newCurrency = $sessionProceGroup->currency;
+				$sessionPriceGroup = RedeventEntitySessionpricegroup::load($sessionPriceGroupId);
+				$newCurrency = $sessionPriceGroup->currency;
 			}
 			else
 			{
-				$newCurrency = $session->getEvent()->getForm()->currency;
+				if ($spgs = $session->getPricegroups())
+				{
+					$newCurrency = reset($spgs)->currency;
+
+					foreach ($spgs as $sessionpricegroup)
+					{
+						if ($sessionpricegroup->currency !== $newCurrency)
+						{
+							throw new InvalidArgumentException(JText::_('LIB_REDEVENTCART_ERROR_ADDING_MULTIPLE_CURRENCIES'));
+						}
+					}
+				}
+				else
+				{
+					$newCurrency = $session->getEvent()->getForm()->currency;
+				}
 			}
 
 			if ($newCurrency !== $this->getCurrency())

@@ -15,6 +15,7 @@ RHelperAsset::load('cartview.css');
 
 JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 JText::script('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_ERROR');
+JText::script('COM_REDEVENTCART_CART_ADD_PARTICIPANT_ERROR');
 
 $sessionsParticipants = $this->cart->getSessionsParticipants();
 ?>
@@ -34,6 +35,7 @@ $sessionsParticipants = $this->cart->getSessionsParticipants();
 	<?php else: ?>
 		<?php foreach ($this->cart->getSessionsParticipants() as $sessionId => $participants): ?>
 			<?php $session = RedeventEntitySession::load($sessionId); ?>
+			<?php $first = reset($participants); ?>
 			<div class="session" session_id="<?= $sessionId ?>">
 				<div class="session-title"><?= $session->getEvent()->title ?></div>
 				<table class="table items-table">
@@ -67,7 +69,7 @@ $sessionsParticipants = $this->cart->getSessionsParticipants();
 								<div class="col-md-12">
 									<h4 class="panel-title">
 										<span class="indicator icon-plus"></span>
-										<span class="participant-add" session_id="<?= $sessionId ?>">
+										<span class="participant-add" session_id="<?= $sessionId ?>" spg_id="<?= $first->session_pricegroup_id ?>">
 											<?= JText::_('COM_REDEVENTCART_CART_ADD_PARTICIPANT'); ?>
 										</span>
 									</h4>

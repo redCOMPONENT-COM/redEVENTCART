@@ -83,11 +83,18 @@
 		 */
 		$('.participant-add').click(function(){
 			var sessionId = $(this).attr('session_id');
+			var sessionPriceGroupId = $(this).attr('spg_id') ? $(this).attr('spg_id') : 0;
 			var $panel = $(this).closest('.panel');
 			var index = $panel.index() + 1;
 
+			var url = 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index;
+
+			if (sessionPriceGroupId) {
+				url += '&spg_id=' + sessionPriceGroupId;
+			}
+
 			$.ajax({
-				url: 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index
+				url: url
 			})
 			.done(function(response){
 				if (response.success) {
@@ -95,11 +102,11 @@
 					updatePrice();
 				}
 				else {
-					alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_CONFIRM'));
+					alert(response.message);
 				}
 			})
 			.fail(function(){
-				alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_CONFIRM'));
+				alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_ERROR'));
 			});
 		});
 
