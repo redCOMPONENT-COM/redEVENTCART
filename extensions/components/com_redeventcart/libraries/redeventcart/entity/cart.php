@@ -110,6 +110,8 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 			throw new InvalidArgumentException('Missing or invalid session id');
 		}
 
+		$this->checkPlacesAvailable($sessionId);
+
 		if (!$this->isEmpty())
 		{
 			if ($sessionPriceGroupId)
@@ -150,6 +152,31 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		if (!empty($error))
 		{
 			throw new InvalidArgumentException(implode("\n", $error));
+		}
+	}
+
+	public function checkPlacesAvailable($sessionId)
+	{
+		$session = RedeventEntitySession::load($sessionId);
+
+		if (!$session->maxattendees)
+		{
+			return;
+		}
+
+		if (!$participants = $this->getSessionsParticipants())
+		{
+			return;
+		}
+
+		if (!($participants[$sessionId]))
+		{
+			return;
+		}
+
+		if (!(count($participants[$sessionId]) < $session->maxattendees))
+		{
+			throw new InvalidArgumentException(JText::_('LIB_REDEVENTCART_ERROR_SESSION_MAX_PLACES_REACHED'));
 		}
 	}
 
