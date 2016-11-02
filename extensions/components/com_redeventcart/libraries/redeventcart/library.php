@@ -52,6 +52,9 @@ JFormHelper::addFieldPath(JPATH_REDEVENTCART_LIBRARY . '/form/field');
 // Make available the redeventcart form rules
 JFormHelper::addRulePath(JPATH_REDEVENTCART_LIBRARY . '/form/rules');
 
+RModel::addIncludePath(JPATH_SITE . '/components/com_redeventcart/models');
+RTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_redeventcart/tables');
+
 // HTML helpers
 JHtml::addIncludePath(__DIR__ . '/html');
 RHtml::addIncludePath(__DIR__ . '/html');

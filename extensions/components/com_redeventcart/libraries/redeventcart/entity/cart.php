@@ -83,6 +83,7 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		$id = $participant->save($data);
 
 		// Refresh
+		$this->participants = null;
 		$this->getParticipants();
 
 		return $id;
@@ -150,6 +151,19 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		{
 			throw new InvalidArgumentException(implode("\n", $error));
 		}
+	}
+
+	/**
+	 * Delete a participant
+	 *
+	 * @param   int  $participantId  participant id
+	 *
+	 * @return void
+	 */
+	public function deleteParticipant($participantId)
+	{
+		$table = $this->getTable('Participant');
+		$table->delete($participantId);
 	}
 
 	/**
