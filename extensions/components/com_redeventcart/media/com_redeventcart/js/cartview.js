@@ -131,6 +131,16 @@
 					$session = $panel.closest('.session')
 					$panel.remove();
 					updatePrice();
+
+					if ($session.find('.panel').length == 1)
+					{
+						$session.remove();
+
+						if ($('.redeventcart.cart').find('.session').length == 0)
+						{
+							$('#no-items, .cart-footer').toggleClass('hide');
+						}
+					}
 				}
 				else {
 					alert(Joomla.JText._('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_ERROR'));

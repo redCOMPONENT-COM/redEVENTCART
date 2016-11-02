@@ -30,9 +30,9 @@ $sessionsParticipants = $this->cart->getSessionsParticipants();
 		<?= $this->intro ?>
 	</div>
 
-	<?php if (!$sessionsParticipants): ?>
-		<div class="alert alert-info"><?= JText::_('COM_REDEVENTCART_CART_CART_IS_EMPTY') ?></div>
-	<?php else: ?>
+	<div id="no-items" class="alert alert-info <?= $sessionsParticipants ? 'hide' : '' ?>"><?= JText::_('COM_REDEVENTCART_CART_CART_IS_EMPTY') ?></div>
+
+	<?php if ($sessionsParticipants): ?>
 		<?php foreach ($this->cart->getSessionsParticipants() as $sessionId => $participants): ?>
 			<?php $session = RedeventEntitySession::load($sessionId); ?>
 			<?php $first = reset($participants); ?>
