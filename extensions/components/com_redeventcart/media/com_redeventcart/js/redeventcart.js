@@ -12,7 +12,12 @@ var redeventCart = (function($){
 				return;
 			}
 
-			alert('added to cart');
+			if (typeof ModRedeventcartCart !== 'undefined') {
+				ModRedeventcartCart.addedParticipant(sessionId);
+			}
+			else {
+				alert('added to cart');
+			}
 		})
 		.fail(function(data){
 			alert('failed');

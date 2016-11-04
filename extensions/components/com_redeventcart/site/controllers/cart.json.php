@@ -77,6 +77,50 @@ class RedeventcartControllerCart extends JControllerLegacy
 	}
 
 	/**
+	 * summary of cart content for module
+	 *
+	 * @return void
+	 */
+	public function cartsummary()
+	{
+		try
+		{
+			$app = JFactory::getApplication();
+
+			$cartId = $app->getUserState('redeventcart.cart', 0);
+			$currentCart = RedeventcartEntityCart::load($cartId);
+
+			$data = array(
+				'totalVatExcl' => RHelperCurrency::getFormattedPrice($currentCart->getTotalPrice(), $currentCart->getCurrency()),
+				'totalVatIncl' => RHelperCurrency::getFormattedPrice(
+					$currentCart->getTotalPrice() + $currentCart->getTotalVat(), $currentCart->getCurrency()
+				),
+				'sessions' => array()
+			);
+
+			$data = array();
+
+			foreach ($currentCart->getParticipants() as $participant)
+			{
+				$session = $participant->getSession();
+				$itemData = array(
+					'id' => $participant->id,
+					'session_id' => $participant->session_id,
+					'label' => RedeventcartHelperLayout::render('redeventcart.cart.sessionlabel', compact('session'))
+				);
+
+				$data[] = $itemData;
+			}
+
+			echo new JResponseJson($data);
+		}
+		catch (Exception $e)
+		{
+			echo new JResponseJson($e);
+		}
+	}
+
+	/**
 	 * Add participant in cart view
 	 *
 	 * @return void
@@ -126,6 +170,26 @@ class RedeventcartControllerCart extends JControllerLegacy
 			}
 
 			echo new JResponseJson($data);
+		}
+		catch (Exception $e)
+		{
+			echo new JResponseJson($e);
+		}
+	}
+
+	/**
+	 * Get a session label
+	 *
+	 * @return void
+	 */
+	public function sessionLabel()
+	{
+		try
+		{
+			$sessionId = $this->input->getInt('id');
+			$session = RedeventEntitySession::load($sessionId);
+
+			echo new JResponseJson(RedeventcartHelperLayout::render('redeventcart.cartmodule.participantadded', compact('session')));
 		}
 		catch (Exception $e)
 		{

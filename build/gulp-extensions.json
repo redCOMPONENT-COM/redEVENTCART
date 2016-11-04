@@ -4,5 +4,10 @@
 	"libraries"  : ["redeventcart", "redcore"],
 	"media"      : ["redcore"],
 	"plugins" : {},
-	"webservices" : ["redcore"]
+	"webservices" : ["redcore"],
+	"modules" : {
+		"frontend": [
+			"mod_redeventcart_cart"
+		]
+	}
 }

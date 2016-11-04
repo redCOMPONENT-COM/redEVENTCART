@@ -83,4 +83,9 @@
 		<plugin name="redeventcart" group="system" />
 	</plugins>
 
+	<!-- Modules to install with the component -->
+	<modules>
+		<!-- Site -->
+		<module name="mod_redeventcart_cart" client="site"/>
+	</modules>
 </extension>
