@@ -181,6 +181,28 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	}
 
 	/**
+	 * Delete all participants
+	 *
+	 * @return void
+	 */
+	public function deleteAll()
+	{
+		if (!$participants = $this->getParticipants())
+		{
+			return;
+		}
+
+		$table = $this->getTable('Participant');
+
+		foreach ($participants as $participant)
+		{
+			$table->delete($participant->id);
+		}
+
+		$this->participants = null;
+	}
+
+	/**
 	 * Delete a participant
 	 *
 	 * @param   int  $participantId  participant id

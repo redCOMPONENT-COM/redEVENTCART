@@ -24,6 +24,30 @@ var redeventCart = (function($){
 		});
 	};
 
+	var empty = function() {
+		$.ajax({
+			url: "index.php?option=com_redeventcart&format=json&task=cart.emptyCart",
+			dataType: "json"
+		})
+			.done(function(response){
+				if (!response.success == true)
+				{
+					alert(response.message);
+					return;
+				}
+
+				if (typeof ModRedeventcartCart !== 'undefined') {
+					ModRedeventcartCart.refresh();
+				}
+				else {
+					alert('Cart emptied');
+				}
+			})
+			.fail(function(data){
+				alert('failed');
+			});
+	}
+
 	$(function(){
 		$('.redeventcart-addsession').click(function(){
 			var sessionId = $(this).attr('session_id');
@@ -33,6 +57,7 @@ var redeventCart = (function($){
 	});
 
 	return {
-		addSession: addSession
+		addSession: addSession,
+		empty: empty
 	};
 })(jQuery);

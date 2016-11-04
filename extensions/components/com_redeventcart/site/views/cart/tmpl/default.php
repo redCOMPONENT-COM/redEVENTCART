@@ -90,6 +90,10 @@ $sessionsParticipants = $this->cart->getSessionsParticipants();
 			<div class="checkout">
 				<a href="<?= JRoute::_(RedeventcartHelperRoute::getBillingRoute()) ?>" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_CHECKOUT') ?></a>
 			</div>
+
+			<div class="empty">
+				<button class="btn btn-warning emptycart"><?= JText::_('COM_REDEVENTCART_CART_EMPTY') ?></button>
+			</div>
 		</div>
 	<?php endif; ?>
 </div>

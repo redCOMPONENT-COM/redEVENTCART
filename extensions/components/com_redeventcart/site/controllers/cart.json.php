@@ -120,6 +120,25 @@ class RedeventcartControllerCart extends JControllerLegacy
 		}
 	}
 
+	public function emptyCart()
+	{
+		try
+		{
+			$app = JFactory::getApplication();
+
+			$cartId = $app->getUserState('redeventcart.cart', 0);
+			$currentCart = RedeventcartEntityCart::load($cartId);
+
+			$currentCart->deleteAll();
+
+			echo new JResponseJson("ok");
+		}
+		catch (Exception $e)
+		{
+			echo new JResponseJson($e);
+		}
+	}
+
 	/**
 	 * Add participant in cart view
 	 *

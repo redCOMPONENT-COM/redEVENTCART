@@ -151,6 +151,26 @@
 			});
 		});
 
+		$('.redeventcart.cart .emptycart').click(function(){
+			var url = 'index.php?option=com_redeventcart&format=json&task=cart.emptyCart';
+
+			$.ajax({
+				url: url
+			})
+				.done(function(response){
+					if (response.success) {
+						$('.redeventcart.cart .session').remove();
+						$('#no-items, .cart-footer').toggleClass('hide');
+					}
+					else {
+						alert(response.message);
+					}
+				})
+				.fail(function(){
+					alert(Joomla.JText._('COM_REDEVENTCART_CART_ADD_PARTICIPANT_ERROR'));
+				});
+		});
+
 		updatePrice();
 		updateCheckout();
 	});
