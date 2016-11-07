@@ -13,6 +13,12 @@ $collapsed = false;
 
 $sessionsParticipants = $this->cart->getSessionsParticipants();
 $sessionsItems = $this->cart->getSessionsitems();
+
+$isModal = JFactory::getApplication()->input->getInt('print');
+
+$printOnClickOptions = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
+$printOnclick = "window.open(this.href,'win2','" . $printOnClickOptions . "'); return false;";
+$printHref = JRoute::_(RedeventcartHelperRoute::getReceiptRoute($this->cart->id) . '&tmpl=component&print=1');
 ?>
 <?php if ($this->params->get('show_page_heading')) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -74,9 +80,13 @@ $sessionsItems = $this->cart->getSessionsitems();
 			<div class="total-price"><?= RHelperCurrency::getFormattedPrice($this->cart->getTotalPrice() + $this->cart->getTotalVat(), $this->cart->getCurrency()) ?></div>
 		</div>
 
-		<div class="buttons">
-			<a href="#" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_GO_TO_MY_ACCOUNT') ?></a>
-			<a href="#" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_PRINT_RECEIPT') ?></a>
-		</div>
+		<?php if ($isModal): ?>
+			<a href="#" class="btn btn-default print-button" onclick="window.print(); return false;" ><?= JText::_('COM_REDEVENTCART_CART_RECEIPT_CLICK_TO_PRINT') ?></a>
+		<?php else: ?>
+			<div class="buttons">
+				<a href="#" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_GO_TO_MY_ACCOUNT') ?></a>
+				<a href="<?= $printHref ?>" onclick="<?= $printOnclick ?>" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_PRINT_RECEIPT') ?></a>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
