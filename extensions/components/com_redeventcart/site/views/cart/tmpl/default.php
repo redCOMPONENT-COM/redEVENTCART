@@ -16,6 +16,7 @@ RHelperAsset::load('cartview.css');
 JText::script('COM_REDEVENTCART_CART_DELETE_PARTICIPANT_CONFIRM');
 JText::script('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_ERROR');
 JText::script('COM_REDEVENTCART_CART_ADD_PARTICIPANT_ERROR');
+JText::script('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_FORM_IS_INVALID');
 
 $sessionsParticipants = $this->cart->getSessionsParticipants();
 ?>

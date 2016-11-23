@@ -52,7 +52,7 @@
 			document.redformvalidator.isValid($form);
 
 			if (!document.redformvalidator.isValid($form)) {
-				alert(Joomla.JText._('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_ERROR'));
+				alert(Joomla.JText._('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_FORM_IS_INVALID'));
 				return;
 			}
 
@@ -68,6 +68,7 @@
 					return;
 				}
 
+				Joomla.removeMessages();
 				var $panel = $form.closest('.panel');
 				$panel.find('span.participant-state').removeClass('hidden');
 				$panel.find('.panel-collapse').collapse();
