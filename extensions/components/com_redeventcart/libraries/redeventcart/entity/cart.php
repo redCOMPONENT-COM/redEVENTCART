@@ -110,6 +110,14 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 			throw new InvalidArgumentException('Missing or invalid session id');
 		}
 
+		$helper = new RedeventRegistrationCanregister($sessionId);
+		$registrationStatus = $helper->canRegister();
+
+		if (!$registrationStatus->canregister)
+		{
+			throw new InvalidArgumentException($registrationStatus->error);
+		}
+
 		$this->checkPlacesAvailable($sessionId);
 
 		if (!$this->isEmpty())
@@ -155,6 +163,15 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 		}
 	}
 
+	/**
+	 * Check that there are enough places available
+	 *
+	 * @param   int  $sessionId  session id
+	 *
+	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 */
 	public function checkPlacesAvailable($sessionId)
 	{
 		$session = RedeventEntitySession::load($sessionId);

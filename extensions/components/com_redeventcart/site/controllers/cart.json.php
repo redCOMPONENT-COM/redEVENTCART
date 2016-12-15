@@ -120,6 +120,11 @@ class RedeventcartControllerCart extends JControllerLegacy
 		}
 	}
 
+	/**
+	 * Empty current cart
+	 *
+	 * @return void
+	 */
 	public function emptyCart()
 	{
 		try
