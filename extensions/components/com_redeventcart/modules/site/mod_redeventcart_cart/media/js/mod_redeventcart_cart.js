@@ -31,7 +31,7 @@ var ModRedeventcartCart = (function($){
 				}
 
 				// Todo: Make it work with Bootstrap popover instead
-				alert(response.data);
+				$('.redeventcart-module-alert').html(response.data).show().fadeOut(6000);
 			});
 		refresh();
 	};

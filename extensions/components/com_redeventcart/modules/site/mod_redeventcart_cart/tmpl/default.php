@@ -15,6 +15,7 @@ RHelperAsset::load('mod_redeventcart_cart.js', 'mod_redeventcart_cart');
 $participants = $cart->getParticipants();
 $count = $participants ? count($participants) : 0;
 ?>
-<span class="redeventcart-module">
-<a href="<?= JRoute::_(RedeventcartHelperRoute::getCartRoute()) ?>"><span class="icon icon-shopping-cart"></span><span class="count"><?= $count ? " ($count)" : '' ?></span></a>
-</span>
+<div class="redeventcart-module">
+	<a href="<?= JRoute::_(RedeventcartHelperRoute::getCartRoute()) ?>"><span class="icon icon-shopping-cart"></span><span class="count"><?= $count ? " ($count)" : '' ?></span></a>
+	<div class="redeventcart-module-alert"></div>
+</div>
