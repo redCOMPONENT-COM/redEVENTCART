@@ -10,7 +10,8 @@ defined('_JEXEC') or die('Restricted access');
 
 extract($displayData);
 
-echo JText::sprintf('COM_REDEVENTCART_CART_PARTICPANT_ADDED_DATE_AND_LOCATION_S_S_S_D',
+echo JText::sprintf('COM_REDEVENTCART_CART_ADDED_TITLE_S_ON_DATE_S_IN_LOCATION_S_COUNTRY_S_DURATION_D',
+	$session->getEvent()->title,
 	$session->getFormattedStartDate(),
 	$session->getVenue()->name,
 	$session->getVenue()->country,
