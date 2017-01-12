@@ -16,6 +16,11 @@ defined('_JEXEC') or die('Restricted access');
  */
 class RedeventcartModelCart extends RModel
 {
+	/**
+	 * Get cart
+	 *
+	 * @return RedeventcartEntityCart
+	 */
 	public function getCart()
 	{
 		$app = JFactory::getApplication();

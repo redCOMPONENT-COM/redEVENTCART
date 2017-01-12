@@ -26,6 +26,31 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 	private $participants;
 
 	/**
+	 * Create attendees from cart participants
+	 *
+	 * @return void
+	 */
+	public function createAttendeesFromParticipants()
+	{
+		require_once JPATH_SITE . '/components/com_redevent/models/registration.php';
+
+		foreach ($this->getParticipants() as $participant)
+		{
+			$user = $this->getUser();
+			$submitter = $participant->getSubmitter();
+
+			// Add attendee in session
+			$model = new RedeventModelRegistration;
+			$model->setXref($participant->session_id);
+			$model->setOrigin('cart');
+			$attendee = $model->register($user, $submitter->id, $submitter->submit_key, $participant->session_pricegroup_id);
+
+			$participant->attendee_id = $attendee->id;
+			$participant->save();
+		}
+	}
+
+	/**
 	 * Get current user current cart
 	 *
 	 * @return $this
@@ -454,5 +479,23 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 			array_keys($sessionsParticipants),
 			$sessionsParticipants
 		);
+	}
+
+	/**
+	 * Return user who submitted the cart
+	 *
+	 * @return JUser
+	 */
+	public function getUser()
+	{
+		if (!$this->hasId())
+		{
+			return false;
+		}
+
+		$item = $this->getItem();
+		$user = JFactory::getUser($item->user_id);
+
+		return $user;
 	}
 }

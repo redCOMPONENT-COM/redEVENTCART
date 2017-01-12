@@ -39,7 +39,12 @@ class RedeventcartViewReceipt extends JViewLegacy
 		$this->dispatcher = RFactory::getDispatcher();
 
 		$billing = '';
-		$this->dispatcher->trigger('onRedeventcartViewReceipt', array($this->cart, &$billing));
+
+		if ($this->cart->getTotalPrice())
+		{
+			// Get receipt from the plugin that handled the payment
+			$this->dispatcher->trigger('onRedeventcartViewReceipt', array($this->cart, &$billing));
+		}
 
 		$this->billing = $billing;
 

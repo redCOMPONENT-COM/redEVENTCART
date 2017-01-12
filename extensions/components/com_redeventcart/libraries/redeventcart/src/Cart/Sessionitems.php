@@ -257,7 +257,7 @@ class Sessionitems
 
 		if (!$paymentRequests = $submitter->getPaymentRequests())
 		{
-			$this->addFromFreeSession();
+			$this->addFromFreeSession($participant->getSession());
 		}
 
 		foreach ($paymentRequests as $paymentRequest)

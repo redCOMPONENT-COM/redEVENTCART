@@ -29,6 +29,20 @@ class RedeventcartControllerCart extends JControllerLegacy
 			$cartId = $app->getUserState('redeventcart.cart', 0);
 			$currentCart = RedeventcartEntityCart::load($cartId);
 
+			if (!$currentCart->getTotalPrice())
+			{
+				// There is nothing to pay, so bypass payment
+				$currentCart->createAttendeesFromParticipants();
+
+				$this->setRedirect(RedeventcartHelperRoute::getReceiptRoute($currentCart->id));
+
+				// Clear from user session, so he can have a new cart
+				$app->setUserState('redeventcart.cart', null);
+
+				return;
+			}
+
+			// Deleguate payment handling to plugins
 			JPluginHelper::importPlugin('redeventcart_payment');
 			$this->dispatcher = RFactory::getDispatcher();
 			RFactory::getDispatcher()->trigger('onRedeventcartStartPayment', array(&$currentCart));

@@ -18,4 +18,6 @@ $layout = $params->get('layout', 'default');
 
 $cart = RedeventcartEntityCart::getCurrentInstance();
 
+$showtitle = false;
+
 require JModuleHelper::getLayoutPath('mod_redeventcart_cart', $layout);
