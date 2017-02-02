@@ -26,23 +26,9 @@ class RedeventcartRouter extends JComponentRouterBase
 	{
 		$segments = array();
 
-		// Get a menu item based on Itemid or currently active
-		if (empty($query['Itemid']))
-		{
-			$menuItem = $this->menu->getActive();
-		}
-		else
-		{
-			$menuItem = $this->menu->getItem($query['Itemid']);
-		}
-
 		if (isset($query['view']))
 		{
-			if (empty($query['Itemid']) || empty($menuItem) || $menuItem->component != 'com_redeventcart')
-			{
-				$segments[] = $query['view'];
-			}
-
+			$segments[] = $query['view'];
 			unset($query['view']);
 		}
 
@@ -64,7 +50,10 @@ class RedeventcartRouter extends JComponentRouterBase
 
 		switch ($view)
 		{
+			case 'billing':
 			case 'cart':
+			case 'payment':
+			case 'receipt':
 			case 'billing':
 				$vars['view'] = $view;
 				break;
