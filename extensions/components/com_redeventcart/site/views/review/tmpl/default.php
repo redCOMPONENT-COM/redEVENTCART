@@ -59,7 +59,7 @@ $isCollapsed = false;
 		</div>
 
 		<div class="checkout">
-			<a href="<?= JRoute::_('index.php?option=com_redeventcart&task=cart.payment'); ?>" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_PLACE_ORDER') ?></a>
+			<a href="<?= JRoute::_('index.php?option=com_redeventcart&task=cart.payment&' . uniqid()) . '=1'; ?>" class="btn btn-default"><?= JText::_('COM_REDEVENTCART_CART_PLACE_ORDER') ?></a>
 		</div>
 	</div>
 </div>

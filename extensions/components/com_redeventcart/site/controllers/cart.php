@@ -22,10 +22,15 @@ class RedeventcartControllerCart extends JControllerLegacy
 	 */
 	public function payment()
 	{
+		$app = JFactory::getApplication();
+
+		// Prevent caching, as we pull data from user session
+		$app->setHeader('Cache-Control', 'no-cache, no-store, must-revalidate', true);
+		$app->setHeader('Pragma', 'no-cache', true);
+		$app->setHeader('Expires', '0', true);
+
 		try
 		{
-			$app = JFactory::getApplication();
-
 			$cartId = $app->getUserState('redeventcart.cart', 0);
 			$currentCart = RedeventcartEntityCart::load($cartId);
 
