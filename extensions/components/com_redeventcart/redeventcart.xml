@@ -44,6 +44,7 @@
 		<folder>language</folder>
 		<folder>layouts</folder>
 		<folder>models</folder>
+		<folder>sef_ext</folder>
 		<folder>views</folder>
 	</files>
 
