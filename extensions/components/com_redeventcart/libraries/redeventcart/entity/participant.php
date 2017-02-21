@@ -86,4 +86,21 @@ class RedeventcartEntityParticipant extends RedeventcartEntityBase
 
 		return RdfEntitySubmitter::load($item->submitter_id);
 	}
+
+	/**
+	 * Get participant user
+	 *
+	 * @return RdfEntitySubmitter
+	 */
+	public function getUser()
+	{
+		$item = $this->loadItem();
+
+		if (!$item->user_id)
+		{
+			return false;
+		}
+
+		return JFactory::getUser($item->user_id);
+	}
 }
