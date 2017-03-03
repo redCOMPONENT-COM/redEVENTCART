@@ -2,9 +2,10 @@
 <config>
 	<fieldset name="general" label="COM_REDEVENTCART_CONFIG_XML_FIELDSET_GENERAL">
 		<field
-				name="dummy"
+				name="ga_affiliation"
 				type="text"
-				label="COM_REDEVENTCART_CONFIG_XML_DUMMY_LABEL"
-				description="COM_REDEVENTCART_CONFIG_XML_DUMMY_DESC" />
+				default=""
+				label="COM_REDEVENTCART_CONFIG_XML_GA_AFFILIATION_LABEL"
+				description="COM_REDEVENTCART_CONFIG_XML_GA_AFFILIATION_DESC" />
 	</fieldset>
 </config>

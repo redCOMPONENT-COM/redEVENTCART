@@ -48,6 +48,54 @@ class RedeventcartViewReceipt extends JViewLegacy
 
 		$this->billing = $billing;
 
+		$this->addGaTracking();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Add google analytics tracking
+	 *
+	 * @return void
+	 */
+	public function addGaTracking()
+	{
+		if (!RdfHelperAnalytics::isEnabled())
+		{
+			return;
+		}
+
+		$params = JFactory::getApplication()->getParams('com_redeventcart');
+		$cartParams = new JRegistry($this->cart->params);
+
+		$redFormCart = RdfEntityCart::getInstance();
+		$redFormCart->loadByReference($cartParams->get('redform_cart_reference'));
+
+		$transaction = new stdClass;
+		$transaction->id =  $redFormCart->invoice_id;
+		$transaction->affiliation =  $params->get('ga_affiliation', JFactory::getApplication()->getCfg('sitename'));
+		$transaction->revenue =  $this->cart->getTotalPrice();
+		$transaction->currency =  $this->cart->getCurrency();
+
+		RdfHelperAnalytics::addTrans($transaction);
+
+		foreach ($redFormCart->getPaymentRequests() as $paymentRequest)
+		{
+			foreach ($paymentRequest->getItems() as $item)
+			{
+				$transactionItem = new stdClass;
+
+				$transactionItem->id = $transaction->id;
+				$transactionItem->productname = $item->label;
+				$transactionItem->sku = $item->sku;
+				$transactionItem->category = 'booking';
+				$transactionItem->price = $item->price + $item->vat;
+				$transactionItem->currency = $transaction->currency;
+
+				RdfHelperAnalytics::addItem($transactionItem);
+			}
+		}
+
+		RdfHelperAnalytics::trackTrans();
 	}
 }
