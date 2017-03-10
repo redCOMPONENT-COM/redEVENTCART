@@ -140,7 +140,7 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 
 		if (!$registrationStatus->canregister)
 		{
-			throw new InvalidArgumentException($registrationStatus->error);
+			throw new InvalidArgumentException(JText::_('LIB_REDEVENTCART_ERROR_ADD_PARTICIPANT_' . $registrationStatus->error));
 		}
 
 		$this->checkPlacesAvailable($sessionId);
