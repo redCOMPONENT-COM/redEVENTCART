@@ -28,6 +28,14 @@ abstract class Log
 	 */
 	public static function logMessage($message, $type = \JLog::INFO)
 	{
+		\JLog::addLogger(
+			array(
+				'text_file' => 'com_redeventcart.errors.php'
+			),
+			\JLog::ALL,
+			array('com_redeventcart')
+		);
+
 		\JLog::add(
 			$message,
 			$type,

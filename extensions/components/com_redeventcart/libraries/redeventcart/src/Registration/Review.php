@@ -40,7 +40,21 @@ class Review
 	 */
 	public function getHtml()
 	{
-		$answers = $this->participant->getSubmitter()->getAnswers();
+		try
+		{
+			if (!$submitter = $this->participant->getSubmitter())
+			{
+				throw new \LogicException('Participant submitter not found');
+			}
+
+			$answers = $submitter->getAnswers();
+		}
+		catch (\Exception $e)
+		{
+			\Redeventcart\Helper\Log::logException($e);
+
+			return 'Error getting participant data';
+		}
 
 		return \RedeventcartHelperLayout::render(
 			'redeventcart.cart.participant.review', array('id' => $this->participant->id, 'answers' => $answers)
