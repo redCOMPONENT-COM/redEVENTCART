@@ -172,6 +172,28 @@
 				});
 		});
 
+		/**
+		 * Make sure all participants are submitted before going to checkout
+		 */
+		$('.checkout a').click(function(e){
+			var valid = true;
+
+			$('.session .panel-heading').each(function(index, element){
+				var $element = $(element);
+
+				if ($element.attr('id') && !$element.hasClass('submitted')) {
+					valid = false;
+				}
+			});
+
+			if (!valid) {
+				e.preventDefault();
+				alert(Joomla.JText._('COM_REDEVENTCART_ERROR_INVALID_STATE_PARTICIPANTS_NOT_SUBMITTED'));
+			}
+
+			return valid;
+		});
+
 		updatePrice();
 		updateCheckout();
 	});

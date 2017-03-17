@@ -498,4 +498,22 @@ class RedeventcartEntityCart extends RedeventcartEntityBase
 
 		return $user;
 	}
+
+	/**
+	 * Check that the participants have submitter_id
+	 *
+	 * @return bool
+	 */
+	public function checkParticipantsAreSubmitted()
+	{
+		foreach ($this->getParticipants() as $participant)
+		{
+			if (!$participant->submitter_id)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

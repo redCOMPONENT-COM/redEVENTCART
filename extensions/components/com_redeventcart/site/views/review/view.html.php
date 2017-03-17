@@ -32,8 +32,17 @@ class RedeventcartViewReview extends JViewLegacy
 
 		$this->title   = $menu->params->get('custom_title', JText::_('COM_REDEVENTCART_VIEW_TITLE_REVIEW'));
 		$this->intro   = $menu->params->get('intro');
-		$this->cart = $this->get('Cart');
 		$this->user = JFactory::getUser();
+
+		try
+		{
+			$this->cart = $this->get('Cart');
+		}
+		catch (Exception $e)
+		{
+			$app->enqueueMessage($e->getMessage(), 'error');
+			$app->redirect(RedeventcartHelperRoute::getCartRoute());
+		}
 
 		parent::display($tpl);
 	}

@@ -21,6 +21,13 @@ class RedeventcartModelReview extends RModel
 		$app = JFactory::getApplication();
 		$current = $app->getUserState('redeventcart.cart', 0);
 
-		return RedeventcartEntityCart::load($current);
+		$cart = RedeventcartEntityCart::load($current);
+
+		if (!$cart->checkParticipantsAreSubmitted())
+		{
+			throw new LogicException(JText::_('COM_REDEVENTCART_ERROR_INVALID_STATE_PARTICIPANTS_NOT_SUBMITTED'));
+		}
+
+		return $cart;
 	}
 }

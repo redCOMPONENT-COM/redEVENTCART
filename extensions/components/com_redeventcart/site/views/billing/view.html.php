@@ -32,7 +32,17 @@ class RedeventcartViewBilling extends JViewLegacy
 
 		$this->title   = $menu->params->get('custom_title', JText::_('COM_REDEVENTCART_VIEW_TITLE_BILLING'));
 		$this->intro   = $menu->params->get('intro');
-		$this->cart = $this->get('Cart');
+
+		try
+		{
+			$this->cart = $this->get('Cart');
+		}
+		catch (Exception $e)
+		{
+			$app->enqueueMessage($e->getMessage(), 'error');
+			$app->redirect(RedeventcartHelperRoute::getCartRoute());
+		}
+
 		$this->user = JFactory::getUser();
 
 		JPluginHelper::importPlugin('redeventcart_payment');
