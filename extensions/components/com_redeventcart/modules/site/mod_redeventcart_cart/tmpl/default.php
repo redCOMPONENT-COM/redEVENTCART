@@ -12,6 +12,10 @@ defined('_JEXEC') or die;
 RHelperAsset::load('mod_redeventcart_cart.css', 'mod_redeventcart_cart');
 RHelperAsset::load('mod_redeventcart_cart.js', 'mod_redeventcart_cart');
 
+JFactory::getDocument()->addScriptDeclaration(
+	'var siteBaseUrl = "' . JUri::base() . '";'
+);
+
 $participants = $cart->getParticipants();
 $count = $participants ? count($participants) : 0;
 ?>

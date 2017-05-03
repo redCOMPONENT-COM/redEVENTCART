@@ -1,11 +1,13 @@
 (function($){
+	var baseUrl = '';
+
 	var toggleChevron = function() {
 		$(this).closest('.panel-heading').find('span.indicator').toggleClass('icon-chevron-down icon-chevron-right');
 	};
 
 	var updatePrice = function() {
 		$.ajax({
-			url: 'index.php?option=com_redeventcart&format=json&task=cart.priceitems'
+			url: baseUrl + 'index.php?option=com_redeventcart&format=json&task=cart.priceitems'
 		})
 		.done(function(response){
 			if (!(response.success == true))
@@ -33,6 +35,10 @@
 	};
 
 	$(function(){
+		if (typeof siteBaseUrl !== 'undefined'){
+			baseUrl = siteBaseUrl;
+		};
+
 		/**
 		 * Toggle accordion chevron
 		 */

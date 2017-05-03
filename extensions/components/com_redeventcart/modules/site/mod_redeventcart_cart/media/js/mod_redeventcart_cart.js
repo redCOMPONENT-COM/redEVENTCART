@@ -1,7 +1,9 @@
 var ModRedeventcartCart = (function($){
+	var baseUrl = '';
+
 	var refresh = function () {
 		$.ajax({
-			url: 'index.php?option=com_redeventcart&format=json&task=cart.cartsummary',
+			url: baseUrl + 'index.php?option=com_redeventcart&format=json&task=cart.cartsummary',
 			type: 'get'
 		})
 			.done(function refreshResponse(response){
@@ -20,7 +22,7 @@ var ModRedeventcartCart = (function($){
 
 	var addedParticipant = function (sessionId){
 		$.ajax({
-			url: 'index.php?option=com_redeventcart&format=json&task=cart.sessionLabel&id=' + sessionId,
+			url: baseUrl + 'index.php?option=com_redeventcart&format=json&task=cart.sessionLabel&id=' + sessionId,
 			type: 'get'
 		})
 			.done(function addResponse(response){
@@ -38,9 +40,13 @@ var ModRedeventcartCart = (function($){
 	};
 
 	$(function(){
+		if (typeof siteBaseUrl !== 'undefined'){
+			baseUrl = siteBaseUrl;
+		};
+
 		$('.redeventcart-module-alert .button-close').click(function closePopup(){
 			$('.redeventcart-module-alert').hide();
-		})
+		});
 	});
 
 	return {

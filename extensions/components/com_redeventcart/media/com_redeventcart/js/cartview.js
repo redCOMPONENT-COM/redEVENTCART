@@ -1,4 +1,6 @@
 (function($){
+	var baseUrl = '';
+
 	var toggleChevron = function() {
 		$(this).closest('.panel-heading').find('span.indicator').toggleClass('icon-chevron-down icon-chevron-right');
 	};
@@ -37,6 +39,10 @@
 	};
 
 	$(function(){
+		if (typeof siteBaseUrl !== 'undefined'){
+			baseUrl = siteBaseUrl;
+		};
+
 		/**
 		 * Toggle accordion chevron
 		 */
@@ -57,7 +63,7 @@
 			}
 
 			$.ajax({
-				url: 'index.php?option=com_redeventcart&format=json&task=participant.save',
+				url: baseUrl + 'index.php?option=com_redeventcart&format=json&task=participant.save',
 				type: 'POST',
 				data: $form.serialize()
 			})
@@ -88,7 +94,7 @@
 			var $panel = $(this).closest('.panel');
 			var index = $panel.index() + 1;
 
-			var url = 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index;
+			var url = baseUrl + 'index.php?option=com_redeventcart&format=json&task=cart.addparticipant&session_id=' + sessionId + '&index=' + index;
 
 			if (sessionPriceGroupId) {
 				url += '&spg_id=' + sessionPriceGroupId;
@@ -125,7 +131,7 @@
 			}
 
 			$.ajax({
-				url: 'index.php?option=com_redeventcart&format=json&task=participant.delete&id=' + id
+				url: baseUrl + 'index.php?option=com_redeventcart&format=json&task=participant.delete&id=' + id
 			})
 			.done(function(response){
 				if (response.success) {
@@ -153,7 +159,7 @@
 		});
 
 		$('.redeventcart.cart .emptycart').click(function(){
-			var url = 'index.php?option=com_redeventcart&format=json&task=cart.emptyCart';
+			var url = baseUrl + 'index.php?option=com_redeventcart&format=json&task=cart.emptyCart';
 
 			$.ajax({
 				url: url
