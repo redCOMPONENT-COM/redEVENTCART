@@ -21,6 +21,17 @@ class PlgSystemRedeventcart extends JPlugin
 {
 	public function onBeforeRender()
 	{
+		if (JFactory::getApplication()->isAdmin())
+		{
+			return;
+		}
+
+
+		if (JFactory::getDocument()->getType() != 'html')
+		{
+			return;
+		}
+
 		RHtmlMedia::loadFrameworkJs();
 		RHelperAsset::load('redeventcart.js', 'com_redeventcart');
 	}
