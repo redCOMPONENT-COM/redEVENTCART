@@ -79,6 +79,7 @@
 				$panel.find('span.participant-state').removeClass('hidden');
 				$panel.find('.panel-collapse').collapse();
 				$panel.find('.panel-heading').addClass('submitted')
+				updatePrice();
 			})
 			.fail(function(){
 				alert(Joomla.JText._('COM_REDEVENTCART_CART_PARTICIPANT_SAVE_ERROR'));

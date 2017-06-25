@@ -32,7 +32,6 @@ class PlgSystemRedeventcart extends JPlugin
 			return;
 		}
 
-		RHtmlMedia::loadFrameworkJs();
 		RHelperAsset::load('redeventcart.js', 'com_redeventcart');
 	}
 }
