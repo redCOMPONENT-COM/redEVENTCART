@@ -28,7 +28,5 @@ class RedeventcartViewPayment extends JViewLegacy
 		// Callback from integration
 		JPluginHelper::importPlugin('redeventcart_payment');
 		RFactory::getDispatcher()->trigger('onRedeventcartReceivePaymentCallback');
-
-		echo 'Error: missing payment plugin integration';
 	}
 }
