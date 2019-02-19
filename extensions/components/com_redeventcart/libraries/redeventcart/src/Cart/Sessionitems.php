@@ -173,7 +173,7 @@ class Sessionitems
 		{
 			$session = $participant->getSession();
 
-			if (!$pricegroups = $session->getPricegroups(true))
+			if (!$pricegroups = $session->getUserActivePricegroups())
 			{
 				$this->addFromFreeSession($session);
 			}
